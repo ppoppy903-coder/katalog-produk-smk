@@ -37,7 +37,7 @@
                 Proyek Kreatif dan Kewirausahaan (PKK) adalah wadah bagi siswa SMK untuk mengembangkan kompetensi melalui praktik nyata pembuatan produk unggulan berbasis industri.
             </p>
             <div class="mt-8 flex space-x-4">
-                <a href="#" class="bg-blue-900 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-800 transition flex items-center">
+                <a href="/katalog" class="bg-blue-900 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-800 transition flex items-center">
                     Lihat Katalog Produk <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
                 <a href="/daftar" class="bg-teal-300 text-teal-900 px-6 py-3 rounded-full font-bold text-sm hover:bg-teal-400 transition">

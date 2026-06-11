@@ -37,15 +37,18 @@
             <span class="text-blue-900 font-bold">Detail Produk</span>
         </div>
 
-        <div class="relative w-full h-[400px] rounded-2xl overflow-hidden mb-10 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="PAVIBLOCK Paving Block Plastik Daur Ulang" class="w-full h-full object-cover">
-            
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-            <div class="absolute bottom-6 left-6 flex space-x-3">
-                <span class="bg-teal-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Produk Unggulan</span>
-                <span class="bg-blue-900 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Go Green</span>
+        <div class="relative w-full h-[400px] mb-10 shadow-sm bg-gradient-to-r from-blue-900 to-teal-700 rounded-2xl flex items-center justify-center">
+            <div class="text-center text-white px-6">
+                <i class="fa-solid fa-industry text-5xl mb-4 opacity-50"></i>
+                <h2 class="text-2xl font-bold">Produk Inovasi Vokasi</h2>
+                <p class="text-blue-100 mt-2">Karya Kreatif Siswa SMK Indonesia</p>
             </div>
+
+        <div class="absolute bottom-6 left-6 flex space-x-3">
+            <span class="bg-teal-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Produk Unggulan</span>
+            <span class="bg-blue-900 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Go Green</span>
         </div>
+    </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             
