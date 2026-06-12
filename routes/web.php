@@ -2,22 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// Home
+Route::get('/', fn () => view('welcome'))->name('home');
+
+// Katalog & Produk (Diperbarui agar mendukung Query String bawaan)
+Route::get('/katalog', fn () => view('katalog'))->name('katalog');
+
+// Detail Produk
+Route::get('/detail-produk', fn () => view('detail-produk'))->name('produk.detail');
+
+// Pendaftaran
+Route::prefix('daftar')->group(function () {
+    Route::get('/', fn () => view('daftar'))->name('daftar');
+    Route::get('/detail-profil', fn () => view('detail-profil-siswa'))->name('daftar.profil');
 });
 
-Route::get('/katalog', function () {
-    return view('katalog');
-});
-
-Route::get('/daftar', function () {
-    return view('daftar');
-});
-
-Route::get('/daftar/detail-profil', function () {
-    return view('detail-profil-siswa');
-});
-
-Route::get('/detail-produk', function () {
-    return view('detail-produk');
-});
+// Fallback
+Route::fallback(fn () => redirect('/'));

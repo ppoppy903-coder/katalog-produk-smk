@@ -8,6 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="bg-[#F8F9FB] text-slate-800">
@@ -54,8 +60,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Inovasi desain bangunan, material ramah lingkungan, dan teknik sipil modern.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=konstruksi" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -69,8 +75,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Produksi komponen mesin, fabrikasi logam, dan otomasi industri presisi tinggi.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=manufaktur" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -84,8 +90,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Panel surya, turbin angin, dan sistem kelistrikan terbarukan masa depan.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=energi" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -99,8 +105,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Pengembangan software, keamanan siber, dan infrastruktur jaringan digital.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=ti" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -114,8 +120,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Alat pelindung diri, asisten kesehatan digital, dan farmasi herbal.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=kesehatan" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -129,8 +135,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Teknologi hidroponik, pengolahan pangan organik, dan peternakan modern.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=agribisnis" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -144,8 +150,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Navigasi kapal, teknologi budidaya laut, dan pengolahan hasil perikanan.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=kemaritiman" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -159,8 +165,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">E-commerce, layanan logistik pintar, dan manajemen ritel inovatif.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=bisnis" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -174,8 +180,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Produk kuliner nusantara, layanan perhotelan, dan travel guide digital.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=pariwisata" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -189,8 +195,8 @@
                     <p class="text-slate-500 text-xs leading-relaxed">Animasi, desain grafis, kriya tekstil, dan karya seni media baru.</p>
                 </div>
                 <div class="px-6 py-4 border-t border-slate-100">
-                    <a href="/detail-produk" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
-                        Lihat selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <a href="?kategori=seni" class="text-xs font-semibold text-slate-600 hover:text-blue-900 flex items-center justify-between">
+                        Lihat produk <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </a>
                 </div>
             </div>
@@ -198,6 +204,127 @@
         </div>
     </section>
 
+    @php
+        $kategori_aktif = request()->query('kategori');
+
+        $semua_produk = [
+            [
+                'kategori_slug' => 'konstruksi',
+                'nama' => 'PAVIBLOCK',
+                'sub_judul' => 'Paving Block Plastik Daur Ulang',
+                'deskripsi' => 'Paving block dan kanstin dari cacahan plastik yang dilelehkan dan dicampur pasir: kuat tekan, tidak licin, lebih ringan dari beton.',
+                'warna_bg' => '#e6f4f1', 'warna_teks' => '#1f5f5f'
+            ],
+            [
+                'kategori_slug' => 'manufaktur',
+                'nama' => 'LASKARYA',
+                'sub_judul' => 'Furnitur Besi Custom',
+                'deskripsi' => 'Furnitur besi minimalis yang dilas, digerinda, dan di-coating anti karat oleh siswa teknik pengelasan.',
+                'warna_bg' => '#f0f4f8', 'warna_teks' => '#2d4059'
+            ],
+            [
+                'kategori_slug' => 'energi',
+                'nama' => 'COCOBRIK',
+                'sub_judul' => 'Briket Tempurung Kelapa',
+                'deskripsi' => 'Briket kubus untuk barbeque, pemanggang sate, dan shisha melalui proses karbonisasi.',
+                'warna_bg' => '#faf6f0', 'warna_teks' => '#5c3a21'
+            ],
+            [
+                'kategori_slug' => 'ti',
+                'nama' => 'WEBIN',
+                'sub_judul' => 'Jasa Website UMKM Instan',
+                'deskripsi' => 'Jasa pembuatan website profil dan katalog UMKM berbasis template selesai maksimal 3 hari.',
+                'warna_bg' => '#edf2fa', 'warna_teks' => '#2b4c9e'
+            ],
+            [
+                'kategori_slug' => 'kesehatan',
+                'nama' => 'JAMUMU',
+                'sub_judul' => 'Jamu Kekinian Botol',
+                'deskripsi' => 'Jamu botol 250 ml higienis dengan takaran terstandar tanpa pengawet sebagai sarana edukasi kesehatan.',
+                'warna_bg' => '#faf6f0', 'warna_teks' => '#8a5a2b'
+            ],
+            [
+                'kategori_slug' => 'agribisnis',
+                'nama' => 'HIDROFRESH',
+                'sub_judul' => 'Sayur Hidroponik & Starter Kit',
+                'deskripsi' => 'Budidaya selada, pakcoy, dan kangkung sistem NFT di greenhouse sekolah plus starter kit hidroponik.',
+                'warna_bg' => '#eaf4ed', 'warna_teks' => '#1f6645'
+            ],
+            [
+                'kategori_slug' => 'kemaritiman',
+                'nama' => 'LAUTAN RASA',
+                'sub_judul' => 'Abon & Stik Ikan',
+                'deskripsi' => 'Abon ikan premium serta stik ikan crispy camilan anak, dikemas pouch kedap udara bermasa simpan panjang.',
+                'warna_bg' => '#f0f6fa', 'warna_teks' => '#1b436b'
+            ],
+            [
+                'kategori_slug' => 'bisnis',
+                'nama' => 'ADMINKU',
+                'sub_judul' => 'Jasa Administrasi & Pembukuan UMKM',
+                'deskripsi' => 'Jasa pembukuan sederhana berbasis aplikasi, penataan arsip dan stok, pendampingan NIB/sertifikasi halal.',
+                'warna_bg' => '#f3f0f8', 'warna_teks' => '#42287a'
+            ],
+            [
+                'kategori_slug' => 'pariwisata',
+                'nama' => 'JELAJAHLOKAL',
+                'sub_judul' => 'Paket Wisata Edukasi Desa',
+                'deskripsi' => 'Paket one-day trip tematik dengan pemandu siswa, konsumsi dari ibu-ibu desa, dan dokumentasi foto.',
+                'warna_bg' => '#faf6f0', 'warna_teks' => '#7a4c28'
+            ],
+            [
+                'kategori_slug' => 'seni',
+                'nama' => 'PERCAKARYA',
+                'sub_judul' => 'Fesyen & Merchandise Kain Perca',
+                'deskripsi' => 'Totebag patchwork, pouch, scrunchie, dan pesanan merchandise event dari limbah kain perca.',
+                'warna_bg' => '#fdf2f5', 'warna_teks' => '#8a2b4b'
+            ]
+        ];
+
+        if ($kategori_aktif) {
+            $produk_tampil = array_filter($semua_produk, function($p) use ($kategori_aktif) {
+                return $p['kategori_slug'] == $kategori_aktif;
+            });
+        } else {
+            $produk_tampil = []; 
+        }
+    @endphp
+
+    <div class="max-w-7xl mx-auto px-8 mb-16">
+        @if(count($produk_tampil) > 0)
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
+                Menampilkan Produk: <span class="text-blue-600 uppercase">{{ str_replace('-', ' ', $kategori_aktif) }}</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
+                @foreach($produk_tampil as $produk)
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col relative hover:shadow-md transition">
+                        <div class="h-40 flex items-center justify-center p-4" style="background-color: {{ $produk['warna_bg'] }};">
+                            <span class="text-2xl font-bold text-center" style="color: {{ $produk['warna_teks'] }};">
+                                {{ $produk['nama'] }}
+                            </span>
+                        </div>
+                        <div class="absolute top-36 left-4">
+                            <span class="bg-[#1a365d] text-white text-[11px] font-semibold px-3 py-1 rounded-full">Usaha Berjalan</span>
+                        </div>
+                        <div class="p-5 pt-6 flex-1 flex flex-col">
+                            <h3 class="text-lg font-bold text-gray-900 mb-1">{{ $produk['nama'] }}</h3>
+                            <p class="text-xs text-gray-500 mb-2 font-medium">{{ $produk['sub_judul'] }}</p>
+                            <p class="text-xs text-gray-600 line-clamp-3 mb-4 flex-1">{{ $produk['deskripsi'] }}</p>
+                            <a href="/detail-produk" class="text-xs text-blue-700 font-medium hover:underline mt-auto">Lihat detail produk ...</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @elseif($kategori_aktif)
+            <div class="text-center bg-white p-12 rounded-2xl border border-dashed border-gray-300">
+                <p class="text-gray-500">Belum ada produk untuk bidang keahlian ini.</p>
+            </div>
+        @else
+            <div class="text-center bg-blue-50/50 p-12 rounded-2xl border border-blue-100">
+                <p class="text-blue-800 font-medium">Silakan klik tombol "Lihat produk" pada salah satu Bidang Keahlian di atas untuk menampilkan daftar produk.</p>
+            </div>
+        @endif
+    </div>
     <section class="max-w-7xl mx-auto px-8 mb-16">
         <div class="bg-[#3B508C] rounded-2xl p-12 text-center text-white shadow-lg">
             <h2 class="text-3xl font-bold mb-4">Ingin Menampilkan Produk SMK Anda?</h2>

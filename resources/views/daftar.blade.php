@@ -157,19 +157,16 @@
     </div>
 
     <script>
-        document.getElementById('btn-next').addEventListener('click', function(e) {
-            e.preventDefault(); // Menahan form agar tidak reload ke atas
-
-            // Ambil kotak mana yang sedang dipilih
-            const selectedRole = document.querySelector('input[name="role"]:checked').value;
-
-            // Logika pindah halaman
-            if (selectedRole === 'siswa') {
+        document.getElementById('btn-next').onclick = function() {
+            // Ambil radio button yang dipilih
+            const role = document.querySelector('input[name="role"]:checked').value;
+            
+            if (role === 'siswa') {
                 window.location.href = '/daftar/detail-profil';
             } else {
-                alert('Tampilan untuk ' + selectedRole + ' belum kita buat ya!');
+                alert('Fitur sedang dikembangkan, khusus demo silakan pilih Siswa!');
             }
-        });
+        };
     </script>
 </body>
 </html>
