@@ -18,7 +18,7 @@
             <button class="text-slate-500 hover:text-blue-900">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
-            <div class="font-bold text-xl text-blue-900">Kemendikdasmen PKK</div>
+            <div class="font-bold text-xl text-blue-900">Proyek Kreatif dan Kewirausahaan Murid SMK</div>
         </div>
         <div>
             <div class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center text-white text-sm cursor-pointer">
@@ -40,15 +40,14 @@
         <div class="relative w-full h-[400px] mb-10 shadow-sm bg-gradient-to-r from-blue-900 to-teal-700 rounded-2xl flex items-center justify-center">
             <div class="text-center text-white px-6">
                 <i class="fa-solid fa-industry text-5xl mb-4 opacity-50"></i>
-                <h2 class="text-2xl font-bold">Produk Inovasi Vokasi</h2>
-                <p class="text-blue-100 mt-2">Karya Kreatif Siswa SMK Indonesia</p>
+                <h2 class="text-2xl font-bold">Produk Kreatif & Kewirausahaan Murid SMK</h2>
             </div>
 
-        <div class="absolute bottom-6 left-6 flex space-x-3">
-            <span class="bg-teal-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Produk Unggulan</span>
-            <span class="bg-blue-900 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Go Green</span>
+            <div class="absolute bottom-6 left-6 flex space-x-3">
+                <span class="bg-teal-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Produk Unggulan</span>
+                <span class="bg-blue-900 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Go Green</span>
+            </div>
         </div>
-    </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             
@@ -58,19 +57,13 @@
                 <h1 class="text-2xl font-extrabold text-slate-800 mb-1">PAVIBLOCK</h1>
                 <p class="text-slate-500 text-sm mb-8">Paving Block Plastik Daur Ulang</p>
 
-                <div class="bg-slate-50 border border-slate-100 rounded-xl p-6 flex flex-col items-center text-center mb-8">
-                    <div class="w-20 h-20 bg-white rounded-full border border-slate-200 flex items-center justify-center mb-4 shadow-sm">
-                        <div class="grid grid-cols-2 gap-1">
-                            <div class="w-3 h-3 bg-teal-700"></div>
-                            <div class="w-3 h-3 bg-teal-700"></div>
-                            <div class="w-3 h-3 bg-teal-700"></div>
-                            <div class="w-3 h-3 bg-teal-700"></div>
-                        </div>
+                <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex flex-col items-center text-center mb-8">
+                    <div class="w-full h-48 bg-slate-200 rounded-lg overflow-hidden mb-4 border border-slate-200 shadow-inner">
+                        <img src="{{ asset('images/paviblock.png') }}" alt="PAVIBLOCK" class="w-full h-full object-cover">
                     </div>
                     <h5 class="text-blue-900 font-semibold text-sm mb-1">Identitas Produk</h5>
                     <p class="text-slate-500 text-xs italic">"Langkah kuat di atas sampah"</p>
                 </div>
-
                 <div class="mb-6">
                     <h4 class="text-teal-600 text-xs font-bold uppercase tracking-widest mb-2 flex items-center">
                         <i class="fa-solid fa-layer-group mr-2"></i> Kategori Usaha (Gerai KMI)

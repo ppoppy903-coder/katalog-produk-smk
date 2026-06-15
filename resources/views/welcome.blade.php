@@ -20,7 +20,9 @@
 <body class="bg-slate-50 text-slate-800">
 
     <nav class="bg-white px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
-        <div class="font-bold text-xl text-blue-900">Kemendikdasmen PKK</div>
+
+        <div class="font-bold text-xl text-blue-900">Proyek Kreatif dan Kewirausahaan Murid SMK</div>
+        
         <div class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
             <a href="/" class="text-blue-900 border-b-2 border-blue-900 pb-1">Beranda</a>
             <a href="/katalog" class="hover:text-blue-900">Katalog</a>
@@ -35,13 +37,13 @@
     <section class="max-w-7xl mx-auto px-8 py-16 grid md:grid-cols-2 gap-12 items-center">
         <div>
             <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                <i class="fas fa-map-marker-alt mr-1"></i> Masa Depan Vokasi
+                <i class="fas fa-map-marker-alt mr-1"></i> Masa Depan Murid SMK
             </span>
             <h1 class="text-4xl md:text-5xl font-bold mt-6 leading-tight text-blue-900">
                 Wujudkan Ide <br> <span class="text-teal-600">Kreatif & Jiwa</span> Wirausaha
             </h1>
             <p class="mt-4 text-slate-600 leading-relaxed max-w-md">
-                Proyek Kreatif dan Kewirausahaan (PKK) adalah wadah bagi siswa SMK untuk mengembangkan kompetensi melalui praktik nyata pembuatan produk unggulan berbasis industri.
+                Proyek Kreatif dan Kewirausahaan (PKK) adalah wadah bagi murid SMK untuk mengembangkan kompetensi melalui praktik nyata pembuatan produk unggulan berbasis industri.
             </p>
             <div class="mt-8 flex space-x-4">
                 <a href="/katalog" class="bg-blue-900 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-800 transition flex items-center">
@@ -52,10 +54,11 @@
                 </a>
             </div>
         </div>
-        <div class="relative">
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Siswa SMK Praktek" class="rounded-2xl shadow-2xl object-cover h-[400px] w-full">
+        
+        <div class="relative flex justify-center items-center h-[400px]">
+            <img src="{{ asset('images/Background PKK.png') }}" alt="Program Kewirausahaan Kreatif PKK SMK" class="rounded-2xl shadow-xl object-contain h-full w-auto mx-auto bg-white p-2">
         </div>
-    </section>
+        </section>
 
     <section class="max-w-7xl mx-auto px-8 py-16">
         <div class="text-center mb-12">
