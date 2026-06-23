@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'nip',          // Digunakan untuk menyimpan "Nama Sekolah"
+        'npsn',         // Digunakan untuk filter sekolah
+        'nisn',         // Opsional, untuk data siswa
     ];
 
     /**
