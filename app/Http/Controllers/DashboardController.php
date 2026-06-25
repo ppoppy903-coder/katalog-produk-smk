@@ -12,28 +12,23 @@ class DashboardController extends Controller
     // --- 1. DASHBOARD GURU ---
     public function dashboardGuru()
     {
-        if (Auth::user()->role !== 'guru') {
-            return redirect()->route('dashboard.siswa');
-        }
+        if (Auth::user()->role !== 'guru') return redirect()->route('dashboard.siswa');
 
-        // Filter produk "menunggu" berdasarkan NPSN sekolah guru yang login
         $produkDiajukan = Produk::where('status', 'menunggu')
             ->whereHas('user', function($query) {
                 $query->where('npsn', Auth::user()->npsn);
             })->get();
             
-        $jumlahPengajuan = $produkDiajukan->count();
-
-        return view('dashboard-guru', compact('produkDiajukan', 'jumlahPengajuan'));
+        return view('dashboard-guru', [
+            'produkDiajukan' => $produkDiajukan,
+            'jumlahPengajuan' => $produkDiajukan->count()
+        ]);
     }
 
     public function notifikasiGuru()
     {
-        if (Auth::user()->role !== 'guru') {
-            return redirect()->route('dashboard.siswa');
-        }
+        if (Auth::user()->role !== 'guru') return redirect()->route('dashboard.siswa');
         
-        // Filter notifikasi berdasarkan NPSN sekolah guru yang login
         $notifikasiProduk = Produk::where('status', 'menunggu')
             ->whereHas('user', function($query) {
                 $query->where('npsn', Auth::user()->npsn);
@@ -44,15 +39,33 @@ class DashboardController extends Controller
         return view('notifikasi-guru', compact('notifikasiProduk'));
     }
 
+    // --- FUNGSI HAPUS NOTIFIKASI (Debugging) ---
+    public function hapusNotifikasi($id)
+    {
+        $produk = Produk::where('id', $id)
+            ->where('status', 'menunggu')
+            ->whereHas('user', function($query) {
+                $query->where('npsn', Auth::user()->npsn);
+            })
+            ->first();
+
+        if ($produk) {
+            // Memaksa update dan penyimpanan
+            $produk->status = 'diabaikan';
+            $produk->save();
+            return back()->with('success', 'Notifikasi berhasil dihilangkan.');
+        }
+
+        // Jika tidak masuk ke kondisi di atas, berarti produk tidak ditemukan/tidak cocok NPSN
+        return back()->withErrors(['error' => 'Data tidak ditemukan!']);
+    }
+
     // --- 2. DASHBOARD SISWA ---
     public function dashboardSiswa()
     {
-        if (Auth::user()->role !== 'siswa') {
-            return redirect()->route('dashboard.guru');
-        }
+        if (Auth::user()->role !== 'siswa') return redirect()->route('dashboard.guru');
 
-        $user = Auth::user();
-        $produks = Produk::where('user_id', $user->id)->latest()->get();
+        $produks = Produk::where('user_id', Auth::id())->latest()->get();
         
         return view('dashboard-siswa', compact('produks'));
     }
@@ -60,12 +73,9 @@ class DashboardController extends Controller
     // --- 3. NOTIFIKASI SISWA ---
     public function notifikasi()
     {
-        if (Auth::user()->role !== 'siswa') {
-            return redirect()->route('dashboard.guru');
-        }
+        if (Auth::user()->role !== 'siswa') return redirect()->route('dashboard.guru');
 
-        $user = Auth::user();
-        $notifikasiProduk = Produk::where('user_id', $user->id)
+        $notifikasiProduk = Produk::where('user_id', Auth::id())
                                     ->whereIn('status', ['disetujui', 'ditolak', 'diterbitkan'])
                                     ->latest()
                                     ->get();
@@ -77,17 +87,15 @@ class DashboardController extends Controller
     public function pengaturan()
     {
         $user = Auth::user();
-        if ($user->role === 'siswa') {
-            return view('pengaturan-siswa', compact('user'));
-        } 
-        return view('pengaturan', compact('user'));
+        return ($user->role === 'siswa') 
+            ? view('pengaturan-siswa', compact('user')) 
+            : view('pengaturan', compact('user'));
     }
     
     public function updatePengaturan(Request $request)
     {
         $user = Auth::user();
         
-        // Validasi: Hapus email, ganti dengan name & password saja
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|min:6|confirmed',

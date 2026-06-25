@@ -45,7 +45,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'guru',
             'nama_sekolah' => $request->nama_sekolah,
-            'npsn' => $request->npsn,
+            'nip' => $request->npsn, // Simpan input npsn ke kolom nip
         ]);
 
         return redirect()->route('login.guru')->with('success', 'Akun guru berhasil dibuat!');
@@ -74,27 +74,24 @@ class AuthController extends Controller
 
     public function loginGuru(Request $request)
     {
-        // 1. Validasi input
         $request->validate([
             'npsn' => 'required',
             'password' => 'required',
         ]);
 
-        // DEBUG: Cek apakah user dengan NPSN ini ada di database
-        $user = User::where('npsn', $request->npsn)->where('role', 'guru')->first();
-        
-        if (!$user) {
-            dd('DEBUG: User dengan NPSN ' . $request->npsn . ' tidak ditemukan di database! Periksa tabel users.');
-        }
+        // Mengambil user berdasarkan 'npsn' yang sudah kita perbaiki tadi
+        $user = \App\Models\User::where('npsn', $request->npsn)
+                                ->where('role', 'guru')
+                                ->first();
 
-        // 2. Coba login menggunakan 'npsn', 'password', dan filter 'role' => 'guru'
-        if (Auth::attempt(['npsn' => $request->npsn, 'password' => $request->password, 'role' => 'guru'])) {
+        // Verifikasi password
+        if ($user && \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
+            \Illuminate\Support\Facades\Auth::login($user);
             $request->session()->regenerate();
             return redirect()->route('dashboard.guru');
         }
 
-        // 3. Jika user ketemu tapi login gagal, berarti password salah
-        dd('DEBUG: NPSN ditemukan (' . $user->name . '), tapi password salah atau hashing tidak cocok!');
+        return back()->withErrors(['npsn' => 'NPSN atau password salah!']);
     }
 
     // --- PROSES LOGOUT ---
