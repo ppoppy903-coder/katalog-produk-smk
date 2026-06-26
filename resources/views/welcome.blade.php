@@ -25,7 +25,7 @@
     {{-- HERO SECTION --}}
     <section class="max-w-7xl mx-auto px-8 py-16 grid md:grid-cols-2 gap-12 items-center">
         <div>
-            <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Masa Depan Vokasi</span>
+            <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Masa Depan SMK</span>
             <h1 class="text-4xl md:text-5xl font-bold mt-6 leading-tight text-blue-900">
                 Wujudkan Ide Kreatif & Jiwa Wirausaha
             </h1>
@@ -43,8 +43,8 @@
     {{-- BIDANG KEAHLIAN --}}
     <section class="max-w-7xl mx-auto px-8 py-12">
         <div class="mb-8">
-            <h2 class="text-3xl font-bold text-blue-900 mb-2">Bidang Keahlian PKK</h2>
-            <p class="text-slate-500">Pilih salah satu bidang keahlian untuk melihat inovasi produk kami.</p>
+            <h2 class="text-3xl font-bold text-blue-900 mb-2">Kategori Produk Kewirausahaan Murid SMK</h2>
+            <p class="text-slate-500">Pilih salah satu produk kewirausahaan kami.</p>
         </div>
         
         <div class="grid grid-cols-2 md:grid-cols-5 gap-6">

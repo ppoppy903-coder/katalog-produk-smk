@@ -62,7 +62,6 @@
                         <label class="block text-sm font-bold text-[#0F2857] mb-2">NIB</label>
                         <input type="text" name="nib" required class="w-full p-3 bg-slate-50 border rounded-lg">
                     </div>
-                    {{-- INPUT TAHUN NIB BARU --}}
                     <div>
                         <label class="block text-sm font-bold text-[#0F2857] mb-2">Tahun NIB</label>
                         <input type="number" name="tahun_nib" required class="w-full p-3 bg-slate-50 border rounded-lg" placeholder="Contoh: 2026">
@@ -116,6 +115,11 @@
                     <div>
                         <label class="block text-sm font-bold text-[#0F2857] mb-2">Akun Media Sosial</label>
                         <input type="text" name="sosmed" required class="w-full p-3 bg-slate-50 border rounded-lg">
+                    </div>
+                    {{-- INPUT NO WHATSAPP TAMBAHAN --}}
+                    <div class="col-span-2">
+                        <label class="block text-sm font-bold text-[#0F2857] mb-2">Nomor WhatsApp (Gunakan kode negara, misal: 628123456789)</label>
+                        <input type="text" name="no_wa" required class="w-full p-3 bg-slate-50 border rounded-lg" placeholder="628123456789">
                     </div>
                 </div>
             </section>

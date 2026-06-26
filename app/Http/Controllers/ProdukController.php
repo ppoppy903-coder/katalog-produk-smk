@@ -23,32 +23,31 @@ class ProdukController extends Controller
             'sosmed'       => 'required',
             'kategori'     => 'required',
             'nib'          => 'required',
-            'tahun_nib'    => 'required|integer', // Validasi tahun_nib
+            'tahun_nib'    => 'required|integer',
         ]);
 
         $logoPath = $request->file('logo')->store('logos', 'public');
         $fotoPath = $request->file('foto_produk')->store('produk_images', 'public');
 
         DB::table('produks')->insert([
-            'user_id'      => Auth::id(),
-            'npsn'         => Auth::user()->npsn,
-            'nama_merek'   => $request->nama_merek,
-            'kategori'     => $request->kategori,
-            'logo'         => $logoPath,
-            'filosofi'     => $request->filosofi,
-            'nib'          => $request->nib,
-            'tahun_nib'    => $request->tahun_nib, // Ditambahkan
-            'nama_produk'  => $request->nama_produk,
-            'foto_produk'  => $fotoPath,
+            'user_id'        => Auth::id(),
+            'nama_merek'     => $request->nama_merek,
+            'kategori'       => $request->kategori,
+            'logo'           => $logoPath,
+            'filosofi'       => $request->filosofi,
+            'nib'            => $request->nib,
+            'tahun_nib'      => $request->tahun_nib,
+            'nama_produk'    => $request->nama_produk,
+            'foto_produk'    => $fotoPath,
             'latar_belakang' => $request->latar_belakang,
-            'deskripsi'    => $request->deskripsi,
-            'harga'        => $request->harga,
-            'lokasi'       => $request->lokasi,
-            'link_maps'    => $request->link_maps,
-            'sosmed'       => $request->sosmed,
-            'status'       => 'draft', 
-            'created_at'   => now(),
-            'updated_at'   => now(),
+            'deskripsi'      => $request->deskripsi,
+            'harga'          => $request->harga,
+            'lokasi'         => $request->lokasi,
+            'link_maps'      => $request->link_maps,
+            'sosmed'         => $request->sosmed,
+            'status'         => 'draft', 
+            'created_at'     => now(),
+            'updated_at'     => now(),
         ]);
 
         return redirect()->route('dashboard.siswa')->with('success', 'Produk berhasil disimpan sebagai draft!');
@@ -102,7 +101,7 @@ class ProdukController extends Controller
             'kategori'       => $request->kategori,
             'filosofi'       => $request->filosofi,
             'nib'            => $request->nib,
-            'tahun_nib'      => $request->tahun_nib, // Ditambahkan
+            'tahun_nib'      => $request->tahun_nib,
             'nama_produk'    => $request->nama_produk,
             'latar_belakang' => $request->latar_belakang,
             'deskripsi'      => $request->deskripsi,

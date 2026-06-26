@@ -12,6 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('produks', function (Blueprint $table) {
+            // Menambahkan kolom kategori
+            if (!Schema::hasColumn('produks', 'kategori')) {
+                $table->string('kategori')->nullable()->after('nama_merek');
+            }
+
             // Pengecekan hasColumn mencegah error "Column already exists"
             if (!Schema::hasColumn('produks', 'lokasi')) {
                 $table->text('lokasi')->nullable()->after('harga');
@@ -32,7 +37,8 @@ return new class extends Migration
     {
         Schema::table('produks', function (Blueprint $table) {
             // Kita drop hanya jika kolom tersebut ada agar rollback tidak error
-            $table->dropColumn(['lokasi', 'link_maps', 'sosmed']);
+            // Kolom 'kategori' juga ditambahkan ke daftar drop
+            $table->dropColumn(['kategori', 'lokasi', 'link_maps', 'sosmed']);
         });
     }
 };

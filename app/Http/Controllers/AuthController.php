@@ -45,7 +45,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'guru',
             'nama_sekolah' => $request->nama_sekolah,
-            'nip' => $request->npsn, // Simpan input npsn ke kolom nip
+            'npsn' => $request->npsn, // DIPERBAIKI: Simpan ke kolom 'npsn', bukan 'nip'
         ]);
 
         return redirect()->route('login.guru')->with('success', 'Akun guru berhasil dibuat!');
@@ -79,14 +79,14 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Mengambil user berdasarkan 'npsn' yang sudah kita perbaiki tadi
-        $user = \App\Models\User::where('npsn', $request->npsn)
-                                ->where('role', 'guru')
-                                ->first();
+        // Mengambil user berdasarkan 'npsn' yang kini sudah sinkron dengan registerGuru
+        $user = User::where('npsn', $request->npsn)
+                    ->where('role', 'guru')
+                    ->first();
 
         // Verifikasi password
-        if ($user && \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
-            \Illuminate\Support\Facades\Auth::login($user);
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->route('dashboard.guru');
         }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('foto_produk')->nullable();
             $table->text('latar_belakang')->nullable();
             $table->text('deskripsi')->nullable();
-            $table->decimal('harga', 15, 2)->nullable();
+            $table->string('harga')->nullable();
             $table->text('lokasi')->nullable();
             $table->string('link_maps')->nullable();
             $table->string('sosmed')->nullable();

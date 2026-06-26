@@ -67,10 +67,9 @@
                 </div>
 
                 {{-- Tombol WhatsApp --}}
-                <a href="https://wa.me/{{ preg_replace('/^0/', '62', $produk->user->no_telp ?? '') }}?text=Halo%20saya%20tertarik%20dengan%20produk%20{{ $produk->nama_produk }}" 
-                   target="_blank" 
-                   class="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition shadow-lg">
-                   Hubungi Penjual via WhatsApp →
+                <a href="https://wa.me/{{ $produk->user->no_hp ?? '' }}" target="_blank" 
+                class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                Hubungi Penjual via WhatsApp →
                 </a>
             </div>
         </div>

@@ -32,7 +32,7 @@ class Produk extends Model
 
     /**
      * Relasi ke User (Satu produk dimiliki oleh satu siswa)
-     * Kita menggunakan App\Models\User untuk memastikan namespace benar
+     * Digunakan untuk mengambil data pemilik produk (termasuk nomor HP)
      */
     public function user() 
     {
