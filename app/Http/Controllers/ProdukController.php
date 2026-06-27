@@ -37,6 +37,7 @@ class ProdukController extends Controller
             'filosofi'       => $request->filosofi,
             'nib'            => $request->nib,
             'tahun_nib'      => $request->tahun_nib,
+            'tampilkan_nib'  => $request->has('tampilkan_nib') ? 1 : 0,
             'nama_produk'    => $request->nama_produk,
             'foto_produk'    => $fotoPath,
             'latar_belakang' => $request->latar_belakang,
@@ -53,26 +54,48 @@ class ProdukController extends Controller
         return redirect()->route('dashboard.siswa')->with('success', 'Produk berhasil disimpan sebagai draft!');
     }
 
-    // MENAMPILKAN KATALOG PUBLIK
+    // MENAMPILKAN KATALOG PUBLIK DENGAN FILTER & SEARCH
     public function showKatalog(Request $request) 
     {
         $kategori_filter = $request->query('kategori');
+        $search = $request->query('search');
         
         $query = Produk::where('status', 'disetujui');
         
         if ($kategori_filter) {
             $query->where('kategori', 'LIKE', '%' . $kategori_filter . '%');
         }
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nama_produk', 'LIKE', '%' . $search . '%')
+                  ->orWhere('deskripsi', 'LIKE', '%' . $search . '%');
+            });
+        }
         
         $produk_kelompok = $query->get()->groupBy('kategori');
 
         $kategori_list = [
-            'Teknologi Konstruksi dan Properti', 'Teknologi Manufaktur dan Rekayasa', 'Energi dan Pertambangan', 
-            'Teknologi Informasi', 'Kesehatan dan Pekerjaan Sosial', 'Agribisnis dan Agriteknologi', 
-            'Kemaritiman', 'Bisnis dan Manajemen', 'Pariwisata', 'Seni dan Ekonomi Kreatif'
+            'Makanan dan Minuman',
+            'Budidaya',
+            'Industri Kreatif, Seni, dan Budaya',
+            'Jasa, Pariwisata, dan Perdagangan',
+            'Manufaktur dan Teknologi Terapan',
+            'Bisnis Digital'
         ];
         
         return view('katalog', compact('produk_kelompok', 'kategori_filter', 'kategori_list'));
+    }
+
+    // MENAMPILKAN PRODUK TERBARU
+    public function showTerbaru()
+    {
+        // Mengambil 8 produk terbaru yang disetujui
+        $produk_terbaru = Produk::where('status', 'disetujui')
+                                ->orderBy('created_at', 'desc')
+                                ->paginate(8); 
+
+        return view('produk-terbaru', compact('produk_terbaru'));
     }
 
     // MENAMPILKAN DETAIL PUBLIK
@@ -80,6 +103,30 @@ class ProdukController extends Controller
     {
         $produk = Produk::where('id', $id)->where('status', 'disetujui')->firstOrFail();
         return view('detail-produk-publik', compact('produk'));
+    }
+
+    // MENYIMPAN KOMENTAR & RATING
+    public function storeKomentar(Request $request, $id) 
+    {
+        $request->validate([
+            'nama' => 'required|string',
+            'komentar' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        // Logika: rating 3 ke atas langsung tampil, di bawah 3 perlu persetujuan siswa
+        $status = ($request->rating >= 3) ? 'disetujui' : 'pending';
+        
+        DB::table('komentars')->insert([
+            'produk_id' => $id,
+            'nama_pengunjung' => $request->nama,
+            'komentar' => $request->komentar,
+            'rating' => $request->rating,
+            'status' => $status,
+            'created_at' => now(),
+        ]);
+
+        return back()->with('success', 'Terima kasih atas ulasan Anda!');
     }
 
     // MENAMPILKAN FORM EDIT
@@ -102,6 +149,7 @@ class ProdukController extends Controller
             'filosofi'       => $request->filosofi,
             'nib'            => $request->nib,
             'tahun_nib'      => $request->tahun_nib,
+            'tampilkan_nib'  => $request->has('tampilkan_nib') ? 1 : 0,
             'nama_produk'    => $request->nama_produk,
             'latar_belakang' => $request->latar_belakang,
             'deskripsi'      => $request->deskripsi,

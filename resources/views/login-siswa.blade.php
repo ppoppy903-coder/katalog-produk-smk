@@ -16,7 +16,7 @@
             <div class="w-8 h-8 bg-white rounded flex items-center justify-center text-[#0A193F]"><i class="fa-solid fa-graduation-cap text-sm"></i></div>
             <span class="font-bold text-sm tracking-widest uppercase">PKK Kemendikdasmen</span>
         </div>
-        <h1 class="text-5xl font-extrabold leading-tight tracking-tight">Meningkatkan<br>Ekselensi Vokasi</h1>
+        <h1 class="text-5xl font-extrabold leading-tight tracking-tight">Meningkatkan<br>Ekselensi SMK</h1>
     </div>
 
     <div class="flex-1 flex flex-col justify-center p-8 md:p-12 lg:p-24 overflow-y-auto">

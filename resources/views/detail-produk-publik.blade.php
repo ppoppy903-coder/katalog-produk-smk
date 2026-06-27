@@ -16,15 +16,14 @@
                     <h3 class="font-bold text-lg text-slate-800">{{ $produk->nama_merek }}</h3>
                 </div>
                 
-                {{-- Informasi Legalitas --}}
-                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                    <h4 class="font-bold text-slate-800 mb-3 border-b pb-2">Informasi Legalitas</h4>
-                    <p class="text-xs text-slate-500 font-bold uppercase">NIB</p>
-                    <p class="text-sm text-slate-700 mb-2">{{ $produk->nib ?? '-' }}</p>
-                    
-                    <p class="text-xs text-slate-500 font-bold uppercase">Tahun NIB</p>
-                    <p class="text-sm text-slate-700">{{ $produk->tahun_nib ?? '-' }}</p>
-                </div>
+                {{-- Logika NIB Baru (Hanya tampil jika dicentang oleh siswa) --}}
+                @if($produk->tampilkan_nib && !empty($produk->nib))
+                    <div class="mt-4 p-4 bg-green-50 border border-green-100 rounded-lg">
+                        <p class="text-sm text-green-800 font-bold">Nomor Induk Berusaha (NIB):</p>
+                        <p class="text-lg text-slate-800">{{ $produk->nib }}</p>
+                        <p class="text-xs text-slate-500 mt-1">Tahun: {{ $produk->tahun_nib }}</p>
+                    </div>
+                @endif
 
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
                     <h4 class="font-bold text-slate-800 mb-2">Filosofi</h4>
@@ -77,6 +76,24 @@
                 class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                 Hubungi Penjual via WhatsApp →
                 </a>
+
+                {{-- Form Ulasan --}}
+                <div class="mt-12 bg-white p-6 rounded-2xl border">
+                    <h3 class="font-bold text-xl mb-4">Berikan Ulasan</h3>
+                    <form action="{{ route('produk.komentar', $produk->id) }}" method="POST">
+                        @csrf
+                        <input type="text" name="nama" placeholder="Nama Anda" class="w-full p-3 border rounded-lg mb-4" required>
+                        <select name="rating" class="w-full p-3 border rounded-lg mb-4">
+                            <option value="5">⭐⭐⭐⭐⭐ (Sangat Bagus)</option>
+                            <option value="4">⭐⭐⭐⭐ (Bagus)</option>
+                            <option value="3">⭐⭐⭐ (Cukup)</option>
+                            <option value="2">⭐⭐ (Kurang)</option>
+                            <option value="1">⭐ (Sangat Kurang)</option>
+                        </select>
+                        <textarea name="komentar" placeholder="Tulis komentar..." class="w-full p-3 border rounded-lg mb-4" required></textarea>
+                        <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold">Kirim Ulasan</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

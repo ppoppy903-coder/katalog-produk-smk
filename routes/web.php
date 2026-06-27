@@ -13,8 +13,12 @@ Route::get('/login', fn () => redirect()->route('login.guru'))->name('login');
 // --- RUTE PUBLIK ---
 Route::get('/', fn () => view('welcome'))->name('home');
 Route::get('/katalog', [ProdukController::class, 'showKatalog'])->name('katalog');
+Route::get('/produk-terbaru', [ProdukController::class, 'showTerbaru'])->name('produk.terbaru');
 Route::get('/about', fn () => view('about'))->name('about');
 Route::get('/detail-produk/{id}', [ProdukController::class, 'showPublic'])->name('produk.detail.publik');
+
+// --- RUTE KOMENTAR (PUBLIK) ---
+Route::post('/produk/{id}/komentar', [ProdukController::class, 'storeKomentar'])->name('produk.komentar');
 
 // --- RUTE TAMU ---
 Route::middleware(['guest'])->group(function () {
@@ -23,7 +27,7 @@ Route::middleware(['guest'])->group(function () {
         if ($request->role === 'siswa') return redirect()->route('daftar.siswa');
         if ($request->role === 'guru') return redirect()->route('daftar.guru');
         return back()->withErrors(['role' => 'Silakan pilih peran!']);
-    })->name('proses.pilih.peran'); // PERBAIKAN: Dihapus titiknya
+    })->name('proses.pilih.peran');
 
     Route::get('/daftar-siswa', fn () => view('daftar-siswa'))->name('daftar.siswa');
     Route::get('/daftar-guru', fn () => view('daftar-guru'))->name('daftar.guru');
@@ -45,7 +49,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifikasi', [DashboardController::class, 'notifikasi'])->name('notifikasi');
     Route::get('/notifikasi-guru', [DashboardController::class, 'notifikasiGuru'])->name('notifikasi.guru');
     
-    // Rute hapus menggunakan POST sesuai arahan pengujian
     Route::post('/notifikasi/{id}', [DashboardController::class, 'hapusNotifikasi'])->name('notifikasi.hapus');
 
     Route::get('/pengaturan', [DashboardController::class, 'pengaturan'])->name('pengaturan');
