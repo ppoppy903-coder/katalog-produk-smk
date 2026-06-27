@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Siswa - PKK Kemendikdasmen</title>
+    <title>Buat Akun Siswa - PKK Kemendikdasmen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .input-modern { @apply w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all duration-300; }
+    </style>
 </head>
-<body class="flex h-screen overflow-hidden bg-white text-slate-800">
+<body class="flex h-screen overflow-hidden bg-slate-50 text-slate-800">
 
-    <div class="hidden lg:flex lg:w-5/12 bg-[#0A193F] text-white flex-col justify-center p-12 relative overflow-hidden">
-        <div class="absolute top-12 left-12 flex items-center gap-3">
-            <div class="w-8 h-8 bg-white rounded flex items-center justify-center text-[#0A193F]"><i class="fa-solid fa-graduation-cap text-sm"></i></div>
-            <span class="font-bold text-sm tracking-widest uppercase">PKK Kemendikdasmen</span>
+    {{-- Sisi Kiri (Branding) --}}
+    <div class="hidden lg:flex lg:w-5/12 bg-[#0A193F] text-white flex-col justify-center p-16 relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full opacity-10"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-12">
+                <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="font-bold tracking-widest uppercase text-xs opacity-70">PKK KEMENDIKDASMEN</span>
+            </div>
+            <h1 class="text-6xl font-extrabold leading-[1.1] mb-6">Meningkatkan<br><span class="text-blue-400">Ekselensi</span> Vokasi</h1>
+            <p class="text-slate-400 max-w-sm leading-relaxed">Platform inovatif untuk mendukung pengembangan kreativitas dan kewirausahaan murid SMK.</p>
         </div>
-        <h1 class="text-5xl font-extrabold leading-tight tracking-tight">Meningkatkan<br>Ekselensi Vokasi</h1>
     </div>
 
-    <div class="flex-1 flex flex-col justify-center p-8 md:p-12 lg:p-24 overflow-y-auto">
-        <div class="max-w-md w-full mx-auto">
+    {{-- Sisi Kanan (Form) --}}
+    <div class="flex-1 flex flex-col justify-center p-8 lg:p-24 overflow-y-auto">
+        <div class="max-w-md w-full mx-auto bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50">
             <div class="mb-8">
-                <h2 class="text-3xl font-extrabold text-[#0A193F] mb-2 tracking-tight">Buat Akun Siswa</h2>
-                <p class="text-slate-500 text-sm">Lengkapi informasi berikut untuk bergabung.</p>
+                <h2 class="text-2xl font-extrabold text-[#0A193F] mb-2">Buat Akun Siswa</h2>
+                <p class="text-slate-500 text-sm">Lengkapi data diri untuk memulai petualanganmu.</p>
             </div>
 
             @if ($errors->any())
-                <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-xl text-sm font-bold">
-                    <ul class="list-disc list-inside">
+                <div class="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-2xl text-xs font-bold">
+                    <ul class="list-disc list-inside space-y-1">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -36,45 +45,47 @@
                 </div>
             @endif
 
-            <form action="{{ route('daftar.siswa.proses') }}" method="POST" class="space-y-4">
+            <form action="{{ route('daftar.siswa.proses') }}" method="POST" class="space-y-6">
                 @csrf
-                <div class="grid grid-cols-2 gap-4">
+                
+                {{-- Baris Nama & Email --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="name" class="block text-xs font-bold text-[#0A193F] mb-2">Nama Lengkap</label>
-                        <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-[#0A193F] outline-none" placeholder="Nama lengkap" required autocomplete="name">
+                        <label class="block text-[10px] font-bold text-[#0A193F] uppercase mb-2 ml-1">Nama Lengkap</label>
+                        <input type="text" name="name" value="{{ old('name') }}" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="Nama Anda" required>
                     </div>
                     <div>
-                        <label for="email" class="block text-xs font-bold text-[#0A193F] mb-2">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-[#0A193F] outline-none" placeholder="contoh@email.com" required autocomplete="email">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="password" class="block text-xs font-bold text-[#0A193F] mb-2">Kata Sandi</label>
-                        <input type="password" id="password" name="password" class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-[#0A193F] outline-none" placeholder="Min. 8 karakter" required autocomplete="new-password">
-                    </div>
-                    <div>
-                        <label for="password_confirmation" class="block text-xs font-bold text-[#0A193F] mb-2">Ulangi Sandi</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" class="w-full p-3 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-[#0A193F] outline-none" placeholder="Ulangi sandi" required autocomplete="new-password">
+                        <label class="block text-[10px] font-bold text-[#0A193F] uppercase mb-2 ml-1">Email</label>
+                        <input type="email" name="email" value="{{ old('email') }}" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="contoh@email.com" required>
                     </div>
                 </div>
 
+                {{-- Baris Password --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-bold text-[#0A193F] uppercase mb-2 ml-1">Kata Sandi</label>
+                        <input type="password" name="password" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="••••••••" required>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-[#0A193F] uppercase mb-2 ml-1">Ulangi Sandi</label>
+                        <input type="password" name="password_confirmation" class="w-full px-5 py-4 bg-slate-200 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                {{-- NPSN --}}
                 <div>
-                    <label for="npsn" class="block text-xs font-bold text-[#0A193F] mb-2">NPSN Sekolah</label>
-                    <input type="text" id="npsn" name="npsn" value="{{ old('npsn') }}" placeholder="Masukkan 8 digit NPSN sekolah Anda" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-[#0A193F] outline-none" required>
+                    <label class="block text-[10px] font-bold text-[#0A193F] uppercase mb-2 ml-1">NPSN Sekolah</label>
+                    <input type="text" name="npsn" value="{{ old('npsn') }}" placeholder="Masukkan 8 digit NPSN" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" required>
                 </div>
 
-                <button type="submit" class="w-full py-4 mt-4 bg-[#0A193F] text-white rounded-xl text-sm font-bold hover:bg-[#071330] transition shadow-md flex items-center justify-center gap-2">
-                    Buat Akun <i class="fa-solid fa-arrow-right"></i>
+                <button type="submit" class="w-full py-4 bg-[#0A193F] text-white rounded-2xl font-bold hover:bg-slate-800 transition-all active:scale-95">
+                    Buat Akun →
                 </button>
             </form>
 
-            <div class="mt-6 text-center">
-                <p class="text-sm text-slate-500">
-                    Sudah punya akun? <a href="{{ route('login.siswa') }}" class="font-bold text-[#065F46] hover:underline">Masuk di sini</a>
-                </p>
-            </div>
+            <p class="text-center text-sm text-slate-500 mt-8">
+                Sudah punya akun? <a href="{{ route('login.siswa') }}" class="font-bold text-[#0A193F] hover:underline">Masuk di sini</a>
+            </p>
         </div>
     </div>
 </body>

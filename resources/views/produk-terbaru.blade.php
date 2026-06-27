@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produk Terbaru - Kemendikdasmen PKK</title>
+    <title>Produk Terbaru - PKK Kemendikdasmen</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style> 
+        body { font-family: 'Plus Jakarta Sans', sans-serif; } 
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
-<body class="bg-white text-slate-800 flex flex-col min-h-screen antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    {{-- NAVBAR MODERN (Tanpa Border) --}}
-    <nav class="bg-white/80 backdrop-blur-md px-8 py-6 flex justify-between items-center sticky top-0 z-50">
-        <div class="font-bold text-xl text-blue-900 tracking-tight">Proyek Kreatif dan Kewirausahaan Murid SMK</div>
-        <div class="flex items-center space-x-8 text-sm font-medium text-slate-600">
-            <a href="/" class="hover:text-blue-900 transition-colors">Beranda</a>
-            <a href="/katalog" class="hover:text-blue-900 transition-colors">Katalog</a>
-            <a href="{{ route('produk.terbaru') }}" class="text-blue-900 border-b-2 border-blue-900 pb-1">Terbaru</a>
+    {{-- NAVBAR DIPERBAIKI (Logika Aktif) --}}
+    <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span>PKK <span class="text-blue-600 font-medium text-sm block md:inline md:ml-1">Murid SMK</span></span>
+        </div>
+        <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
+            <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
+            <a href="{{ route('katalog') }}" class="{{ request()->routeIs('katalog') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Katalog</a>
+            <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
         </div>
     </nav>
 

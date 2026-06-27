@@ -14,15 +14,19 @@
 </head>
 <body class="bg-white text-slate-800 flex flex-col min-h-screen antialiased">
 
-    {{-- NAVBAR TANPA GARIS --}}
-    <nav class="bg-white/80 backdrop-blur-md px-8 py-6 flex justify-between items-center sticky top-0 z-50">
-        <div class="font-bold text-xl text-blue-900 tracking-tight">Proyek Kreatif dan Kewirausahaan Murid SMK</div>
-        <div class="flex items-center space-x-8 text-sm font-medium text-slate-600">
-            <a href="/" class="hover:text-blue-900 transition-colors">Beranda</a>
-            <a href="/katalog" class="text-blue-900 border-b-2 border-blue-900 pb-1">Katalog</a>
-            <a href="{{ route('produk.terbaru') }}" class="hover:text-blue-900 transition-colors">Terbaru</a>
-        </div>
-    </nav>
+        <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+            <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span>PKK <span class="text-blue-600 font-medium text-sm block md:inline md:ml-1">Murid SMK</span></span>
+            </div>
+            <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
+                <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
+                <a href="{{ route('katalog') }}" class="{{ request()->routeIs('katalog') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Katalog</a>
+                <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
+            </div>
+        </nav>
 
     <section class="max-w-7xl mx-auto px-8 py-12 flex-grow w-full">
         <h1 class="text-3xl font-extrabold text-[#0F2857] mb-10">Katalog Produk</h1>
@@ -41,25 +45,69 @@
         </form>
 
         {{-- NAVIGASI KATEGORI --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            @php
-                $kategori_data = [
-                    'Makanan dan Minuman' => ['icon' => 'fas fa-utensils', 'bg' => 'bg-orange-50', 'text' => 'text-orange-600'],
-                    'Budidaya' => ['icon' => 'fas fa-seedling', 'bg' => 'bg-emerald-50', 'text' => 'text-emerald-600'],
-                    'Industri Kreatif, Seni, dan Budaya' => ['icon' => 'fas fa-palette', 'bg' => 'bg-purple-50', 'text' => 'text-purple-600'],
-                    'Jasa, Pariwisata, dan Perdagangan' => ['icon' => 'fas fa-briefcase', 'bg' => 'bg-sky-50', 'text' => 'text-sky-600'],
-                    'Manufaktur dan Teknologi Terapan' => ['icon' => 'fas fa-industry', 'bg' => 'bg-slate-100', 'text' => 'text-slate-700'],
-                    'Bisnis Digital' => ['icon' => 'fas fa-chart-line', 'bg' => 'bg-indigo-50', 'text' => 'text-indigo-600'],
-                ];
-            @endphp
+{{-- BIDANG KEAHLIAN - WARNA PREMIUM & HIDUP --}}        
+        @php
+            $kategori_data = [
+                'Makanan dan Minuman' => [
+                    'icon' => 'fas fa-utensils', 
+                    'gradient' => 'from-orange-500/10 to-amber-500/5 hover:from-orange-500 hover:to-amber-500', 
+                    'text' => 'text-orange-600', 
+                    'border' => 'border-orange-100 hover:border-transparent'
+                ],
+                'Budidaya' => [
+                    'icon' => 'fas fa-seedling', 
+                    'gradient' => 'from-emerald-500/10 to-teal-500/5 hover:from-emerald-500 hover:to-teal-500', 
+                    'text' => 'text-emerald-600', 
+                    'border' => 'border-emerald-100 hover:border-transparent'
+                ],
+                'Industri Kreatif, Seni, dan Budaya' => [
+                    'icon' => 'fas fa-palette', 
+                    'gradient' => 'from-purple-500/10 to-pink-500/5 hover:from-purple-500 hover:to-pink-500', 
+                    'text' => 'text-purple-600', 
+                    'border' => 'border-purple-100 hover:border-transparent'
+                ],
+                'Jasa, Pariwisata, dan Perdagangan' => [
+                    'icon' => 'fas fa-briefcase', 
+                    'gradient' => 'from-sky-500/10 to-blue-500/5 hover:from-sky-500 hover:to-blue-500', 
+                    'text' => 'text-sky-600', 
+                    'border' => 'border-sky-100 hover:border-transparent'
+                ],
+                'Manufaktur dan Teknologi Terapan' => [
+                    'icon' => 'fas fa-industry', 
+                    'gradient' => 'from-slate-600/10 to-slate-500/5 hover:from-slate-700 hover:to-slate-600', 
+                    'text' => 'text-slate-700', 
+                    'border' => 'border-slate-200/60 hover:border-transparent'
+                ],
+                'Bisnis Digital' => [
+                    'icon' => 'fas fa-chart-line', 
+                    'gradient' => 'from-indigo-500/10 to-blue-500/5 hover:from-indigo-500 hover:to-blue-500', 
+                    'text' => 'text-indigo-600', 
+                    'border' => 'border-indigo-100 hover:border-transparent'
+                ],
+            ];
+        @endphp
 
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($kategori_data as $nama => $data)
                 <a href="{{ route('katalog') }}?kategori={{ urlencode($nama) }}" 
-                   class="group {{ $data['bg'] }} p-6 rounded-2xl transition-all duration-300 hover:shadow-md {{ ($kategori_filter ?? '') == $nama ? 'ring-2 ring-blue-900' : '' }}">
-                    <div class="w-12 h-12 bg-white/60 rounded-xl flex items-center justify-center text-lg {{ $data['text'] }} mb-4 group-hover:scale-105 transition-transform duration-300">
-                        <i class="{{ $data['icon'] }}"></i>
+                   class="group bg-gradient-to-br {{ $data['gradient'] }} p-6 rounded-2xl border {{ $data['border'] }} shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between min-h-[145px]">
+                    
+                    <div class="space-y-4">
+                        {{-- Icon Badge --}}
+                        <div class="w-11 h-11 bg-white rounded-xl flex items-center justify-center text-base {{ $data['text'] }} shadow-sm group-hover:bg-white/20 group-hover:text-white transition-all duration-300">
+                            <i class="{{ $data['icon'] }}"></i>
+                        </div>
+                        
+                        {{-- Kategori Title --}}
+                        <h3 class="text-base font-bold text-[#0A2540] leading-snug group-hover:text-white transition-colors duration-300">
+                            {{ $nama }}
+                        </h3>
                     </div>
-                    <h3 class="text-md font-bold text-[#0F2857]">{{ $nama }}</h3>
+                    
+                    {{-- Interactive Label --}}
+                    <div class="pt-2 flex items-center gap-1 text-[11px] font-bold text-blue-600 group-hover:text-white/90 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        Jelajahi Produk <i class="fas fa-arrow-right text-[9px]"></i>
+                    </div>
                 </a>
             @endforeach
         </div>
