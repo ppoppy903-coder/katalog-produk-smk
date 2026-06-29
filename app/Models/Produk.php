@@ -38,4 +38,13 @@ class Produk extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
+
+    /**
+     * Relasi ke Komentar (Satu produk bisa memiliki banyak komentar)
+     * Digunakan untuk menampilkan daftar ulasan pada detail produk
+     */
+    public function komentars()
+    {
+        return $this->hasMany(Komentar::class, 'produk_id');
+    }
 }

@@ -28,8 +28,17 @@
                     <h2 class="text-3xl font-extrabold text-[#0A193F] mt-1">{{ $produk->nama_produk }}</h2>
                 </div>
 
-                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner">
-                    <img src="{{ asset('storage/'.$produk->foto_produk) }}" class="w-full h-64 object-cover" alt="Foto Produk">
+                {{-- Tampilan Multi-Foto Produk (Diperbarui) --}}
+                @php $fotos = json_decode($produk->foto_produk); @endphp
+                <div class="grid grid-cols-1 gap-4">
+                    <img src="{{ asset('storage/'.($fotos[0] ?? '')) }}" class="w-full h-64 object-cover rounded-2xl border border-slate-200" alt="Foto Utama">
+                    @if(is_array($fotos) && count($fotos) > 1)
+                        <div class="grid grid-cols-5 gap-2">
+                            @foreach(array_slice($fotos, 1) as $foto)
+                                <img src="{{ asset('storage/'.$foto) }}" class="h-20 w-full object-cover rounded-lg">
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
                 <div>
@@ -42,6 +51,27 @@
                     <p class="text-slate-600 leading-relaxed">{{ $produk->deskripsi }}</p>
                 </div>
 
+                {{-- SECTION BARU: Tim Pengembang & Institusi --}}
+                <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+                    <h4 class="font-bold text-indigo-900 mb-4 uppercase text-xs">Identitas Tim & Institusi</h4>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-[10px] text-indigo-700 font-bold uppercase">Sekolah</p>
+                            <p class="text-indigo-900 font-bold">{{ $produk->nama_sekolah ?? '-' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-indigo-700 font-bold uppercase">Jurusan</p>
+                            <p class="text-indigo-900 font-bold">{{ $produk->jurusan ?? '-' }}</p>
+                        </div>
+                    </div>
+                    @if($produk->foto_tim)
+                        <div class="mt-2">
+                            <p class="text-[10px] text-indigo-700 font-bold uppercase mb-2">Foto Tim Bersama</p>
+                            <img src="{{ asset('storage/'.$produk->foto_tim) }}" class="w-full h-48 object-cover rounded-xl shadow-md" alt="Foto Tim">
+                        </div>
+                    @endif
+                </div>
+
                 {{-- Kotak Informasi Lengkap --}}
                 <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 grid grid-cols-2 gap-6">
                     <div>
@@ -52,16 +82,14 @@
                         <h5 class="text-[10px] uppercase font-bold text-blue-800 mb-1">Kontak Siswa</h5>
                         <p class="text-blue-900 font-bold">{{ $produk->user->no_telp ?? 'Tidak tersedia' }}</p>
                     </div>
-                    <div>
+                    <div class="col-span-2">
                         <h5 class="text-[10px] uppercase font-bold text-blue-800 mb-1">Lokasi</h5>
                         <p class="text-blue-900 font-medium">{{ $produk->lokasi }}</p>
                     </div>
                     <div>
-                        <h5 class="text-[10px] uppercase font-bold text-blue-800 mb-1">Sosial Media</h5>
-                        <a href="{{ $produk->sosmed }}" target="_blank" class="text-blue-600 underline font-medium">Klik untuk lihat</a>
+                        <a href="{{ $produk->sosmed }}" target="_blank" class="text-blue-600 underline font-medium">Sosial Media</a>
                     </div>
-                    <div class="col-span-2">
-                        <h5 class="text-[10px] uppercase font-bold text-blue-800 mb-1">Link Maps</h5>
+                    <div>
                         <a href="{{ $produk->link_maps }}" target="_blank" class="text-blue-600 underline font-medium">Buka di Maps</a>
                     </div>
                 </div>

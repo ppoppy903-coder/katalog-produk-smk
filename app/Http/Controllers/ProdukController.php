@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Produk;
 
 class ProdukController extends Controller
@@ -14,21 +15,37 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_merek'   => 'required',
-            'nama_produk'  => 'required',
-            'logo'         => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_produk'  => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'lokasi'       => 'required',
-            'link_maps'    => 'required|url',
-            'sosmed'       => 'required',
-            'kategori'     => 'required',
-            'nib'          => 'required',
-            'tahun_nib'    => 'required|integer',
+            'nama_merek'     => 'required',
+            'nama_produk'    => 'required',
+            'logo'           => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_produk'    => 'required',
+            'foto_produk.*'  => 'image|mimes:jpeg,png,jpg|max:2048',
+            'foto_tim'       => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'lokasi'         => 'required',
+            'link_maps'      => 'required|url',
+            'sosmed'         => 'required',
+            'kategori'       => 'required',
+            'nib'            => 'required_if:tampilkan_nib,1',         
+            'tahun_nib'      => 'required|integer',
+            'nama_sekolah'   => 'required',
+            'jurusan'        => 'required',
         ]);
 
+        // 1. Proses Upload Logo
         $logoPath = $request->file('logo')->store('logos', 'public');
-        $fotoPath = $request->file('foto_produk')->store('produk_images', 'public');
 
+        // 2. Proses Multi-upload Foto Produk (Looping Array)
+        $fotoPaths = [];
+        if ($request->hasFile('foto_produk')) {
+            foreach ($request->file('foto_produk') as $file) {
+                $fotoPaths[] = $file->store('produk_images', 'public');
+            }
+        }
+
+        // 3. Proses Upload Foto Tim Bersama
+        $fotoTimPath = $request->file('foto_tim')->store('tim_images', 'public');
+
+        // 4. Insert ke Database
         DB::table('produks')->insert([
             'user_id'        => Auth::id(),
             'nama_merek'     => $request->nama_merek,
@@ -39,13 +56,16 @@ class ProdukController extends Controller
             'tahun_nib'      => $request->tahun_nib,
             'tampilkan_nib'  => $request->has('tampilkan_nib') ? 1 : 0,
             'nama_produk'    => $request->nama_produk,
-            'foto_produk'    => $fotoPath,
+            'foto_produk'    => json_encode($fotoPaths), // Disimpan sebagai JSON
             'latar_belakang' => $request->latar_belakang,
             'deskripsi'      => $request->deskripsi,
             'harga'          => $request->harga,
             'lokasi'         => $request->lokasi,
             'link_maps'      => $request->link_maps,
             'sosmed'         => $request->sosmed,
+            'nama_sekolah'   => $request->nama_sekolah,
+            'jurusan'        => $request->jurusan,
+            'foto_tim'       => $fotoTimPath,
             'status'         => 'draft', 
             'created_at'     => now(),
             'updated_at'     => now(),
@@ -90,7 +110,6 @@ class ProdukController extends Controller
     // MENAMPILKAN PRODUK TERBARU
     public function showTerbaru()
     {
-        // Mengambil 8 produk terbaru yang disetujui
         $produk_terbaru = Produk::where('status', 'disetujui')
                                 ->orderBy('created_at', 'desc')
                                 ->paginate(8); 
@@ -105,7 +124,7 @@ class ProdukController extends Controller
         return view('detail-produk-publik', compact('produk'));
     }
 
-    // MENYIMPAN KOMENTAR & RATING
+    // MENYIMPAN KOMENTAR & RATING DENGAN MODERASI
     public function storeKomentar(Request $request, $id) 
     {
         $request->validate([
@@ -114,22 +133,37 @@ class ProdukController extends Controller
             'rating' => 'required|integer|min:1|max:5',
         ]);
 
-        // Logika: rating 3 ke atas langsung tampil, di bawah 3 perlu persetujuan siswa
-        $status = ($request->rating >= 3) ? 'disetujui' : 'pending';
+        $produk = Produk::findOrFail($id);
+        $rating = $request->rating;
+        
+        $status = ($rating >= 3) ? 'disetujui' : 'pending';
         
         DB::table('komentars')->insert([
             'produk_id' => $id,
             'nama_pengunjung' => $request->nama,
             'komentar' => $request->komentar,
-            'rating' => $request->rating,
+            'rating' => $rating,
             'status' => $status,
             'created_at' => now(),
         ]);
 
-        return back()->with('success', 'Terima kasih atas ulasan Anda!');
+        if ($status == 'pending') {
+            DB::table('notifications')->insert([
+                'id' => Str::uuid(), 
+                'type' => 'App\Notifications\ModerasiUlasan', 
+                'notifiable_type' => 'App\Models\User', 
+                'notifiable_id' => $produk->user_id, 
+                'data' => json_encode([
+                    'pesan' => "Ada ulasan baru untuk produk '{$produk->nama_produk}' dengan rating rendah ({$rating} bintang). Perlu moderasi."
+                ]),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        return back()->with('success', 'Ulasan berhasil dikirim!');
     }
 
-    // MENAMPILKAN FORM EDIT
     public function edit($id)
     {
         $produk = DB::table('produks')->where('id', $id)->where('user_id', Auth::id())->first();
@@ -137,7 +171,6 @@ class ProdukController extends Controller
         return view('edit-produk', compact('produk'));
     }
 
-    // MEMPERBARUI PRODUK
     public function update(Request $request, $id)
     {
         $produk = DB::table('produks')->where('id', $id)->where('user_id', Auth::id())->first();
@@ -165,9 +198,15 @@ class ProdukController extends Controller
             $data['logo'] = $request->file('logo')->store('logos', 'public');
         }
         
+        // Catatan: Jika update foto produk, logic-nya harus disesuaikan dengan json_decode/encode juga.
         if ($request->hasFile('foto_produk')) {
-            if ($produk->foto_produk) Storage::disk('public')->delete($produk->foto_produk);
-            $data['foto_produk'] = $request->file('foto_produk')->store('produk_images', 'public');
+            if ($produk->foto_produk) {
+                $oldPhotos = json_decode($produk->foto_produk);
+                foreach ($oldPhotos as $oldPhoto) Storage::disk('public')->delete($oldPhoto);
+            }
+            $newPhotos = [];
+            foreach ($request->file('foto_produk') as $file) $newPhotos[] = $file->store('produk_images', 'public');
+            $data['foto_produk'] = json_encode($newPhotos);
         }
 
         DB::table('produks')->where('id', $id)->update($data);
@@ -175,7 +214,6 @@ class ProdukController extends Controller
         return redirect()->route('dashboard.siswa')->with('success', 'Perubahan produk berhasil disimpan!');
     }
 
-    // MENGAJUKAN PRODUK KE GURU
     public function ajukan($id)
     {
         $produk = DB::table('produks')->where('id', $id)->where('user_id', Auth::id())->first();
@@ -187,5 +225,15 @@ class ProdukController extends Controller
         ]);
         
         return redirect()->route('dashboard.siswa')->with('success', 'Produk berhasil diajukan ke Guru Pembimbing!');
+    }
+
+    public function approveKomentar($id) {
+        DB::table('komentars')->where('id', $id)->update(['status' => 'disetujui']);
+        return back()->with('success', 'Ulasan berhasil dipublikasikan!');
+    }
+
+    public function deleteKomentar($id) {
+        DB::table('komentars')->where('id', $id)->delete();
+        return back()->with('success', 'Ulasan berhasil dihapus.');
     }
 }

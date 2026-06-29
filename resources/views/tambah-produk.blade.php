@@ -71,7 +71,10 @@
                     </h3>
                     <div class="space-y-6">
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Produk</label><input type="text" name="nama_produk" required class="input-3d"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Foto Produk</label><input type="file" name="foto_produk" required class="input-3d"></div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Foto Produk (Maksimal 6 Foto)</label>
+                            <input type="file" name="foto_produk[]" multiple accept="image/*" required class="input-3d" onchange="checkFileCount(this)">
+                        </div>
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Latar Belakang</label><textarea name="latar_belakang" rows="2" required class="input-3d"></textarea></div>
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Deskripsi Produk</label><textarea name="deskripsi" rows="2" required class="input-3d"></textarea></div>
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Harga</label><input type="text" name="harga" required class="input-3d" placeholder="Contoh: Rp 100.000"></div>
@@ -93,7 +96,24 @@
                     </div>
                 </section>
 
-                <button type="submit" class="w-full bg-[#0A193F] text-white py-5 rounded-2xl font-bold hover:bg-blue-900 hover:shadow-xl transition-all active:scale-[0.98] text-lg">
+                {{-- SECTION 4: IDENTITAS TIM & INSTITUSI --}}
+                <section class="bg-white p-8 rounded-3xl border-l-8 border-indigo-500 shadow-lg shadow-indigo-900/5">
+                    <h3 class="text-lg font-extrabold text-[#0A193F] mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">4</span> Identitas Tim & Institusi
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Sekolah</label><input type="text" name="nama_sekolah" required class="input-3d"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Jurusan</label><input type="text" name="jurusan" required class="input-3d"></div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Foto Tim Pengembang (Foto Bersama Siswa & Guru)</label>
+                        <input type="file" name="foto_tim" accept="image/*" required class="input-3d">
+                        <p class="text-[10px] text-slate-400 mt-2 font-bold uppercase">* Pastikan foto bersama terlihat jelas dan cerah.</p>
+                    </div>
+                </section>
+
+                <button type="submit" class="w-full bg-[#0A193F] text-white py-5 rounded-2xl font-bold hover:bg-blue-900 transition-all text-lg">
                     Simpan Semua Data Produk <i class="fa-solid fa-arrow-right ml-2"></i>
                 </button>
             </form>
@@ -101,12 +121,36 @@
     </main>
 
     <script>
+        // Toggle NIB Input
         const checkbox = document.getElementById('nibCheckbox');
         const input = document.getElementById('nibInput');
         checkbox.addEventListener('change', function() {
             input.disabled = !this.checked;
             input.className = this.checked ? "input-3d" : "input-3d bg-slate-50";
         });
+
+        // Validasi jumlah file foto produk
+        function checkFileCount(input) {
+            if (input.files.length > 6) {
+                alert("Maksimal hanya boleh upload 6 foto!");
+                input.value = "";
+            }
+        }
+
+        // Tambah anggota tim
+        let count = 1;
+        function tambahAnggota() {
+            if (count < 4) {
+                count++;
+                const div = document.createElement('div');
+                div.className = "flex gap-4 items-center bg-slate-50 p-4 rounded-2xl";
+                div.innerHTML = `<input type="text" name="tim_nama[]" placeholder="Nama Anggota" class="input-3d" required>
+                                 <input type="file" name="tim_foto[]" accept="image/*" class="input-3d" required>`;
+                document.getElementById('tim-container').appendChild(div);
+            } else {
+                alert("Maksimal 4 anggota tim.");
+            }
+        }
     </script>
 </body>
 </html>

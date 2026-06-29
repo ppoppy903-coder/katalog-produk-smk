@@ -1,101 +1,109 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $produk->nama_produk }} | Detail Produk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-[#F8FAFC]">
 
-@section('content')
-<div class="max-w-6xl mx-auto p-6">
-    {{-- Header --}}
-    <div class="bg-blue-900 text-white p-8 rounded-2xl mb-8 shadow-lg">
-        <h1 class="text-3xl font-bold">Detail Produk</h1>
-    </div>
+    <div class="max-w-6xl mx-auto px-4 py-10">
+        {{-- Tombol Navigasi --}}
+        <a href="{{ route('katalog') }}" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:text-blue-800 transition mb-6">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog
+        </a>
 
-    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {{-- Navbar Header --}}
+        <div class="bg-blue-600 text-white px-8 py-6 rounded-3xl mb-8 shadow-lg flex items-center justify-between">
+            <h1 class="text-xl font-bold flex items-center gap-3">
+                <i class="fa-solid fa-circle-info"></i> Detail Postingan
+            </h1>
+            <span class="px-4 py-1 bg-white/20 rounded-full text-xs font-bold uppercase tracking-widest">{{ $produk->kategori }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {{-- Bagian Kiri --}}
-            <div class="md:col-span-1 space-y-6">
-                <div class="bg-slate-50 p-6 rounded-xl text-center border border-slate-100">
-                    <img src="{{ asset('storage/'.$produk->logo) }}" class="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-white shadow-sm">
-                    <h3 class="font-bold text-lg text-slate-800">{{ $produk->nama_merek }}</h3>
+            <div class="lg:col-span-8 space-y-6">
+                <div class="bg-white p-3 rounded-3xl shadow-sm border border-blue-100">
+                    <img src="{{ asset('storage/'.$produk->foto_produk) }}" class="w-full h-96 object-cover rounded-2xl" alt="Produk">
+                    @if(isset($produk->galeri) && count($produk->galeri) > 0)
+                        <div class="grid grid-cols-5 gap-2 mt-3">
+                            @foreach($produk->galeri as $foto)
+                                <img src="{{ asset('storage/'.$foto) }}" class="h-20 w-full object-cover rounded-xl border border-blue-100">
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
-                
-                {{-- Logika NIB Baru (Hanya tampil jika dicentang oleh siswa) --}}
-                @if($produk->tampilkan_nib && !empty($produk->nib))
-                    <div class="mt-4 p-4 bg-green-50 border border-green-100 rounded-lg">
-                        <p class="text-sm text-green-800 font-bold">Nomor Induk Berusaha (NIB):</p>
-                        <p class="text-lg text-slate-800">{{ $produk->nib }}</p>
-                        <p class="text-xs text-slate-500 mt-1">Tahun: {{ $produk->tahun_nib }}</p>
-                    </div>
-                @endif
 
-                <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                    <h4 class="font-bold text-slate-800 mb-2">Filosofi</h4>
-                    <p class="text-sm text-slate-600 italic">"{{ $produk->filosofi }}"</p>
+                <div class="bg-white p-8 rounded-3xl border border-blue-100 shadow-sm space-y-6">
+                    <h1 class="text-4xl font-extrabold text-slate-900">{{ $produk->nama_produk }}</h1>
+                    <p class="text-blue-600 font-medium italic">Merek: {{ $produk->nama_merek }}</p>
+                    
+                    <div class="space-y-6 text-slate-600">
+                        <div><h3 class="font-bold text-slate-900 mb-2">Filosofi</h3><p class="bg-blue-50 p-4 rounded-2xl italic border-l-4 border-blue-200">"{{ $produk->filosofi }}"</p></div>
+                        <div><h3 class="font-bold text-slate-900 mb-2">Latar Belakang</h3><p class="leading-relaxed">{{ $produk->latar_belakang }}</p></div>
+                        <div><h3 class="font-bold text-slate-900 mb-2">Deskripsi</h3><p class="leading-relaxed">{{ $produk->deskripsi }}</p></div>
+                    </div>
+
+                    {{-- BLOK IDENTITAS TIM PENGEMBANG --}}
+                    <div class="mt-8 bg-indigo-50 p-6 rounded-3xl border border-indigo-100">
+                        <h3 class="font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-users"></i> Tim Pengembang & Institusi
+                        </h3>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <p class="text-[10px] uppercase font-bold text-slate-400">Sekolah</p>
+                                <p class="font-bold text-slate-900">{{ $produk->nama_sekolah ?? '-' }}</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <p class="text-[10px] uppercase font-bold text-slate-400">Jurusan</p>
+                                <p class="font-bold text-slate-900">{{ $produk->jurusan ?? '-' }}</p>
+                            </div>
+                        </div>
+                        @if($produk->foto_tim)
+                            <p class="text-[10px] uppercase font-bold text-slate-400 mb-2">Foto Tim</p>
+                            <img src="{{ asset('storage/'.$produk->foto_tim) }}" class="w-full h-48 object-cover rounded-2xl shadow-md border-4 border-white" alt="Foto Tim">
+                        @endif
+                    </div>
                 </div>
             </div>
 
             {{-- Bagian Kanan --}}
-            <div class="md:col-span-2 space-y-6">
-                <div>
-                    <span class="text-emerald-600 font-bold text-xs uppercase">{{ $produk->kategori }}</span>
-                    <h2 class="text-3xl font-extrabold text-[#0A193F]">{{ $produk->nama_produk }}</h2>
-                </div>
-
-                <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-inner">
-                    <img src="{{ asset('storage/'.$produk->foto_produk) }}" class="w-full h-64 object-cover" alt="Foto Produk">
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-slate-800">Latar Belakang</h4>
-                    <p class="text-slate-600">{{ $produk->latar_belakang }}</p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-slate-800">Deskripsi</h4>
-                    <p class="text-slate-600">{{ $produk->deskripsi }}</p>
-                </div>
-
-                {{-- Grid Informasi --}}
-                <div class="bg-blue-50 p-6 rounded-xl grid grid-cols-2 gap-6">
-                    <div>
-                        <h5 class="text-[10px] uppercase font-bold text-blue-800">Harga</h5>
-                        <p class="text-blue-900 font-bold">{{ $produk->harga }}</p>
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bg-white p-8 rounded-3xl border border-blue-100 shadow-sm space-y-4">
+                    <img src="{{ asset('storage/'.$produk->logo) }}" class="w-32 h-32 rounded-3xl object-cover mb-4 shadow-md border border-blue-50">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-slate-50 p-4 rounded-2xl"><p class="text-[9px] uppercase font-bold text-slate-400">Harga</p><p class="font-bold text-slate-900">{{ $produk->harga }}</p></div>
+                        <div class="bg-slate-50 p-4 rounded-2xl"><p class="text-[9px] uppercase font-bold text-slate-400">Lokasi</p><p class="font-bold text-slate-900">{{ $produk->lokasi }}</p></div>
                     </div>
-                    <div>
-                        <h5 class="text-[10px] uppercase font-bold text-blue-800">Lokasi</h5>
-                        <p class="text-blue-900 font-bold">{{ $produk->lokasi }}</p>
-                    </div>
-                    <div>
-                        <h5 class="text-[10px] uppercase font-bold text-blue-800">Maps</h5>
-                        <a href="{{ $produk->link_maps }}" target="_blank" class="text-blue-600 font-bold underline">Lihat Lokasi</a>
-                    </div>
-                    <div>
-                        <h5 class="text-[10px] uppercase font-bold text-blue-800">Sosmed</h5>
-                        <p class="text-blue-900 font-bold">{{ $produk->sosmed }}</p>
-                    </div>
+                    <a href="https://wa.me/{{ $produk->user->no_hp ?? '' }}" target="_blank" class="w-full block text-center bg-[#A7F3D0] hover:bg-[#86EFAC] text-[#065F46] font-bold py-4 rounded-2xl transition shadow-sm">
+                        <i class="fa-brands fa-whatsapp mr-2"></i> Hubungi Penjual
+                    </a>
                 </div>
-
-                <a href="https://wa.me/{{ $produk->user->no_hp ?? '' }}" target="_blank" 
-                class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
-                Hubungi Penjual via WhatsApp →
-                </a>
-
+                
                 {{-- Form Ulasan --}}
-                <div class="mt-12 bg-white p-6 rounded-2xl border">
-                    <h3 class="font-bold text-xl mb-4">Berikan Ulasan</h3>
-                    <form action="{{ route('produk.komentar', $produk->id) }}" method="POST">
+                <div class="bg-white p-8 rounded-3xl border border-blue-100 shadow-sm">
+                    <h3 class="font-bold text-slate-900 mb-4">Tulis Ulasan</h3>
+                    <form action="{{ route('produk.komentar', $produk->id) }}" method="POST" class="space-y-3">
                         @csrf
-                        <input type="text" name="nama" placeholder="Nama Anda" class="w-full p-3 border rounded-lg mb-4" required>
-                        <select name="rating" class="w-full p-3 border rounded-lg mb-4">
+                        <input type="text" name="nama" placeholder="Nama Anda" class="w-full p-3 bg-slate-50 rounded-xl outline-none" required>
+                        <select name="rating" class="w-full p-3 border border-gray-200 rounded-xl outline-none" required>
                             <option value="5">⭐⭐⭐⭐⭐ (Sangat Bagus)</option>
                             <option value="4">⭐⭐⭐⭐ (Bagus)</option>
                             <option value="3">⭐⭐⭐ (Cukup)</option>
                             <option value="2">⭐⭐ (Kurang)</option>
                             <option value="1">⭐ (Sangat Kurang)</option>
                         </select>
-                        <textarea name="komentar" placeholder="Tulis komentar..." class="w-full p-3 border rounded-lg mb-4" required></textarea>
-                        <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold">Kirim Ulasan</button>
+                        <textarea name="komentar" placeholder="Ulasan..." class="w-full p-3 bg-slate-50 rounded-xl outline-none h-20" required></textarea>
+                        <button class="w-full bg-slate-900 text-white py-3 rounded-2xl font-bold">Kirim Ulasan</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+</body>
+</html>

@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/dashboard-siswa', [DashboardController::class, 'dashboardSiswa'])->name('dashboard.siswa');
     Route::get('/dashboard-guru', [DashboardController::class, 'dashboardGuru'])->name('dashboard.guru');
+    
+    // Rute notifikasi yang sudah benar dan mengarah ke DashboardController
     Route::get('/notifikasi', [DashboardController::class, 'notifikasi'])->name('notifikasi');
     Route::get('/notifikasi-guru', [DashboardController::class, 'notifikasiGuru'])->name('notifikasi.guru');
     
@@ -59,6 +61,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{id}/update', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk/{id}/ajukan', [ProdukController::class, 'ajukan'])->name('produk.ajukan');
+    
+    // --- RUTE MODERASI ULASAN (SISWA) ---
+    Route::post('/ulasan/approve/{id}', [ProdukController::class, 'approveKomentar'])->name('ulasan.approve');
+    Route::delete('/ulasan/delete/{id}', [ProdukController::class, 'deleteKomentar'])->name('ulasan.delete');
     
     Route::get('/validasi-produk', [ValidasiController::class, 'index'])->name('validasi.produk');
     Route::get('/validasi-produk/{id}', [ValidasiController::class, 'show'])->name('validasi.show');

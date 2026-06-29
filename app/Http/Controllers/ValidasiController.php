@@ -9,6 +9,9 @@ use App\Notifications\ProdukDisetujui;
 
 class ValidasiController extends Controller
 {
+    /**
+     * Menampilkan daftar produk yang menunggu validasi.
+     */
     public function index()
     {
         if (Auth::user()->role !== 'guru') {
@@ -24,6 +27,9 @@ class ValidasiController extends Controller
         return view('validasi-produk', compact('produk'));
     }
 
+    /**
+     * Menampilkan detail produk untuk divalidasi.
+     */
     public function show($id)
     {
         if (Auth::user()->role !== 'guru') {
@@ -39,6 +45,9 @@ class ValidasiController extends Controller
         return view('detail-produk', compact('produk'));
     }
 
+    /**
+     * Memperbarui status produk (Disetujui/Ditolak).
+     */
     public function updateStatus(Request $request, $id)
     {
         if (Auth::user()->role !== 'guru') {
@@ -58,6 +67,7 @@ class ValidasiController extends Controller
         $produk->status = ($request->status === 'diterbitkan') ? 'disetujui' : 'ditolak';
         $produk->save();
         
+        // Kirim notifikasi jika disetujui
         if ($produk->status === 'disetujui') {
             $siswa = $produk->user; 
             if ($siswa) {
@@ -86,7 +96,6 @@ class ValidasiController extends Controller
             ->latest()
             ->get();
             
-        // Disempurnakan agar memanggil 'history-guru' sesuai dengan nama file Anda
         return view('history-guru', compact('histori'));
     }
 }

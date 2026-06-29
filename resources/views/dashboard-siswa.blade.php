@@ -71,4 +71,31 @@
             </div>
         @endforelse
     </div>
+
+    {{-- MODERASI ULASAN --}}
+    <div class="mt-12">
+        <h3 class="text-xl font-bold text-[#0A193F] mb-6">Moderasi Ulasan Negatif</h3>
+        <div class="space-y-4">
+            @forelse($ulasanPending ?? [] as $ulasan)
+                <div class="bg-white p-6 rounded-2xl border border-red-100 shadow-sm flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-slate-800">{{ $ulasan->nama_pengunjung }} <span class="text-amber-500 text-xs">({{ $ulasan->rating }} Bintang)</span></p>
+                        <p class="text-slate-600 text-sm mt-1">{{ $ulasan->komentar }}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <form action="{{ route('ulasan.approve', $ulasan->id) }}" method="POST">
+                            @csrf
+                            <button class="bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-emerald-600 transition">Publish</button>
+                        </form>
+                        <form action="{{ route('ulasan.delete', $ulasan->id) }}" method="POST">
+                            @csrf @method('DELETE')
+                            <button class="bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-red-600 transition">Hapus</button>
+                        </form>
+                    </div>
+                </div>
+            @empty
+                <p class="text-slate-400 text-sm italic">Tidak ada ulasan yang perlu dimoderasi.</p>
+            @endforelse
+        </div>
+    </div>
 @endsection
