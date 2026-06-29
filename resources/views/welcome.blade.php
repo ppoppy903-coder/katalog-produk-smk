@@ -19,7 +19,7 @@
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
                 <i class="fas fa-graduation-cap"></i>
             </div>
-            <span>PKK <span class="text-blue-600 font-medium text-sm block md:inline md:ml-1">Murid SMK</span></span>
+            <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
         </div>
         <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
             <a href="/" class="text-blue-600 border-b-2 border-blue-600 pb-1">Beranda</a>
@@ -32,7 +32,7 @@
     <section class="max-w-7xl mx-auto px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
         <div class="space-y-6">
             <span class="inline-flex items-center gap-1.5 text-blue-700 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-full font-bold text-xs uppercase tracking-wider">
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> Kreativitas Vokasi
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> Masa Depan Murid SMK
             </span>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-[#0A2540] leading-[1.1] tracking-tight">
                 Wujudkan Ide Kreatif & Jiwa Wirausaha

@@ -7,25 +7,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Efek transisi halus pada card */
+        .role-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
 </head>
-<body class="flex h-screen overflow-hidden bg-white text-slate-800">
+<body class="flex h-screen overflow-hidden bg-slate-50 text-slate-800">
 
-    <div class="hidden lg:flex lg:w-5/12 bg-[#0A193F] text-white flex-col justify-between p-12 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+    {{-- Sisi Kiri (Modern Branding) --}}
+    <div class="hidden lg:flex lg:w-5/12 bg-[#0A193F] text-white flex-col justify-center p-16 relative overflow-hidden">
+        {{-- Aksen Dekoratif --}}
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full opacity-10"></div>
+        <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-indigo-500 rounded-full opacity-10"></div>
+        
         <div class="relative z-10">
-            <div class="flex items-center gap-3 mb-20">
-                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-[#0A193F] shadow-sm">
-                    <i class="fa-solid fa-graduation-cap text-xl"></i>
-                </div>
-                <span class="font-bold text-xl tracking-tight">PKK Kemendikdasmen</span>
+            <div class="flex items-center gap-3 mb-12">
+                <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-white"><i class="fa-solid fa-graduation-cap"></i></div>
+                <span class="font-bold tracking-widest uppercase text-xs opacity-80">PKK Kemendikdasmen</span>
             </div>
-            <h1 class="text-5xl font-extrabold leading-tight mb-6 mt-20 tracking-tight">
-                Bimbing Inovasi<br><span class="text-[#80F2D6]">Siswa SMK</span>
-            </h1>
-            <p class="text-slate-300 text-sm leading-relaxed max-w-sm">
-                Bergabunglah dalam ekosistem pendidikan vokasi yang modern dan terintegrasi untuk masa depan industri Indonesia yang lebih cerah.
-            </p>
+            <h1 class="text-6xl font-extrabold leading-[1.1] mb-6">Meningkatkan<br><span class="text-blue-400">Ekselensi</span> SMK</h1>
+            <p class="text-slate-400 max-w-sm leading-relaxed">Platform inovatif untuk mendukung pengembangan kreativitas dan kewirausahaan murid SMK.</p>
         </div>
     </div>
 

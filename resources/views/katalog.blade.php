@@ -5,44 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Produk SMK - Kemendikdasmen PKK</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
+    <style> 
+        body { font-family: 'Plus Jakarta Sans', sans-serif; } 
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
-<body class="bg-white text-slate-800 flex flex-col min-h-screen antialiased">
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-        <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
-            <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
-                <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <span>PKK <span class="text-blue-600 font-medium text-sm block md:inline md:ml-1">Murid SMK</span></span>
+    <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
+                <i class="fas fa-graduation-cap"></i>
             </div>
-            <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
-                <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
-                <a href="{{ route('katalog') }}" class="{{ request()->routeIs('katalog') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Katalog</a>
-                <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
+                <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
             </div>
-        </nav>
+        </div>
+        <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
+            <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
+            <a href="{{ route('katalog') }}" class="{{ request()->routeIs('katalog') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Katalog</a>
+            <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
+        </div>
+    </nav>
 
     <section class="max-w-7xl mx-auto px-8 py-12 flex-grow w-full">
         <h1 class="text-3xl font-extrabold text-[#0F2857] mb-10">Katalog Produk</h1>
 
-        {{-- FORM PENCARIAN --}}
-        <form action="{{ route('katalog') }}" method="GET" class="mb-12">
-            <div class="relative flex items-center w-full"> 
-                <input type="text" name="search" placeholder="Cari nama produk..." 
-                       value="{{ request('search') }}"
-                       class="w-full p-4 pl-6 bg-slate-50 rounded-full shadow-inner focus:ring-2 focus:ring-blue-900 outline-none transition text-sm">
-                <button type="submit" 
-                        class="absolute right-2 bg-[#0F2857] text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-blue-900 transition-all active:scale-95 shadow-lg">
-                    Cari Produk
-                </button>
-            </div>
-        </form>
+        <div class="mb-10 text-center max-w-2xl mx-auto">
+            <h1 class="text-2xl font-extrabold text-[#0A193F] mb-2">
+                Cari Produk Kewirausahaan Murid SMK
+            </h1>
+            <p class="text-slate-500 text-sm mb-6">Temukan berbagai inovasi kreatif dari seluruh Indonesia</p>
+            
+            {{-- FORM PENCARIAN (Dibuat lebih ramping dan halus) --}}
+            <form action="{{ route('katalog') }}" method="GET" class="relative group">
+                <div class="flex items-center w-full bg-white border border-slate-200 rounded-full shadow-sm hover:shadow-md transition-all focus-within:ring-2 focus-within:ring-blue-900/10">
+                    <i class="fas fa-search ml-5 text-slate-400 text-sm"></i>
+                    <input type="text" name="search" placeholder="Ketik nama produk..." 
+                        value="{{ request('search') }}"
+                        class="w-full p-3.5 pl-3 bg-transparent outline-none text-sm placeholder:text-slate-400">
+                    <button type="submit" 
+                            class="mr-2 bg-[#0F2857] text-white px-6 py-2.5 rounded-full font-bold text-xs hover:bg-blue-900 transition-all active:scale-95">
+                        Cari
+                    </button>
+                </div>
+            </form>
+        </div>
 
         {{-- NAVIGASI KATEGORI --}}
 {{-- BIDANG KEAHLIAN - WARNA PREMIUM & HIDUP --}}        
@@ -137,8 +146,9 @@
         @endif
     </section>
 
-    <footer class="bg-slate-50 py-10 px-8 text-center text-slate-500 text-xs mt-auto">
-        © 2026 Kemendikdasmen. All rights reserved.
+    {{-- FOOTER --}}
+    <footer class="bg-white border-t border-slate-100 py-10 px-8 text-center text-slate-400 text-xs font-medium tracking-wide">
+        &copy; 2026 Kemendikdasmen. All rights reserved.
     </footer>
 </body>
 </html>

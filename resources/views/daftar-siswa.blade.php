@@ -22,7 +22,7 @@
                 <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center"><i class="fa-solid fa-graduation-cap"></i></div>
                 <span class="font-bold tracking-widest uppercase text-xs opacity-70">PKK KEMENDIKDASMEN</span>
             </div>
-            <h1 class="text-6xl font-extrabold leading-[1.1] mb-6">Meningkatkan<br><span class="text-blue-400">Ekselensi</span> Vokasi</h1>
+            <h1 class="text-6xl font-extrabold leading-[1.1] mb-6">Meningkatkan<br><span class="text-blue-400">Ekselensi</span> SMK</h1>
             <p class="text-slate-400 max-w-sm leading-relaxed">Platform inovatif untuk mendukung pengembangan kreativitas dan kewirausahaan murid SMK.</p>
         </div>
     </div>

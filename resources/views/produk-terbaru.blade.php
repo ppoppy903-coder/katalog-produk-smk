@@ -20,7 +20,7 @@
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
                 <i class="fas fa-graduation-cap"></i>
             </div>
-            <span>PKK <span class="text-blue-600 font-medium text-sm block md:inline md:ml-1">Murid SMK</span></span>
+            <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
         </div>
         <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
             <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
@@ -53,8 +53,8 @@
     </section>
 
     {{-- FOOTER --}}
-    <footer class="bg-slate-50 py-16 px-8 text-center text-slate-500 text-sm mt-auto">
-        © 2026 Kemendikdasmen. All rights reserved.
+    <footer class="bg-white border-t border-slate-100 py-10 px-8 text-center text-slate-400 text-xs font-medium tracking-wide">
+        &copy; 2026 Kemendikdasmen. All rights reserved.
     </footer>
 
 </body>

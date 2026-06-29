@@ -26,8 +26,8 @@
                 <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-white"><i class="fa-solid fa-graduation-cap"></i></div>
                 <span class="font-bold tracking-widest uppercase text-xs opacity-80">PKK Kemendikdasmen</span>
             </div>
-            <h1 class="text-6xl font-extrabold leading-[1.1] mb-6">Meningkatkan<br><span class="text-blue-400">Ekselensi</span> Vokasi</h1>
-            <p class="text-slate-400 max-w-sm leading-relaxed">Platform inovatif untuk mendukung pengembangan kreativitas dan kewirausahaan murid SMK di seluruh Indonesia.</p>
+            <h1 class="text-6xl font-extrabold leading-[1.1] mb-6">Meningkatkan<br><span class="text-blue-400">Ekselensi</span> SMK</h1>
+            <p class="text-slate-400 max-w-sm leading-relaxed">Platform inovatif untuk mendukung pengembangan kreativitas dan kewirausahaan murid SMK.</p>
         </div>
     </div>
 
@@ -69,5 +69,5 @@
         </div>
         <p class="text-center text-slate-400 text-xs mt-8">© 2026 PKK Kemendikdasmen</p>
     </div>
-</body>
+</body> 
 </html>
