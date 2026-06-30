@@ -17,7 +17,8 @@
                 </div>
                 <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
                     <h4 class="font-bold text-slate-800 mb-2">Filosofi Logo</h4>
-                    <p class="text-sm text-slate-600 italic">"{{ $produk->filosofi }}"</p>
+                    {{-- Diperbarui menjadi rata kanan-kiri (justify) --}}
+                    <p class="text-sm text-slate-600 italic" style="text-align: justify;">"{{ $produk->filosofi }}"</p>
                 </div>
             </div>
 
@@ -43,12 +44,14 @@
 
                 <div>
                     <h4 class="font-bold text-slate-800 mb-2">Latar Belakang</h4>
-                    <p class="text-slate-600 leading-relaxed">{{ $produk->latar_belakang }}</p>
+                    {{-- Diperbarui menjadi rata kanan-kiri (justify) --}}
+                    <p class="text-slate-600 leading-relaxed" style="text-align: justify;">{{ $produk->latar_belakang }}</p>
                 </div>
 
                 <div>
                     <h4 class="font-bold text-slate-800 mb-2">Deskripsi Produk/Jasa</h4>
-                    <p class="text-slate-600 leading-relaxed">{{ $produk->deskripsi }}</p>
+                    {{-- Diperbarui menjadi rata kanan-kiri (justify) --}}
+                    <p class="text-slate-600 leading-relaxed" style="text-align: justify;">{{ $produk->deskripsi }}</p>
                 </div>
 
                 {{-- SECTION BARU: Tim Pengembang & Institusi --}}
@@ -84,7 +87,8 @@
                     </div>
                     <div class="col-span-2">
                         <h5 class="text-[10px] uppercase font-bold text-blue-800 mb-1">Lokasi</h5>
-                        <p class="text-blue-900 font-medium">{{ $produk->lokasi }}</p>
+                        {{-- Lokasi juga disesuaikan agar rata kanan-kiri jika teksnya panjang --}}
+                        <p class="text-blue-900 font-medium" style="text-align: justify;">{{ $produk->lokasi }}</p>
                     </div>
                     <div>
                         <a href="{{ $produk->sosmed }}" target="_blank" class="text-blue-600 underline font-medium">Sosial Media</a>

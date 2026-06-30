@@ -44,9 +44,23 @@
                     <p class="text-blue-600 font-medium italic">Merek: {{ $produk->nama_merek }}</p>
                     
                     <div class="space-y-6 text-slate-600">
-                        <div><h3 class="font-bold text-slate-900 mb-2">Filosofi</h3><p class="bg-blue-50 p-4 rounded-2xl italic border-l-4 border-blue-200">"{{ $produk->filosofi }}"</p></div>
-                        <div><h3 class="font-bold text-slate-900 mb-2">Latar Belakang</h3><p class="leading-relaxed">{{ $produk->latar_belakang }}</p></div>
-                        <div><h3 class="font-bold text-slate-900 mb-2">Deskripsi</h3><p class="leading-relaxed">{{ $produk->deskripsi }}</p></div>
+                        {{-- 1. Filosofi (Ditambahkan text-align: justify) --}}
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-2">Filosofi</h3>
+                            <p class="bg-blue-50 p-4 rounded-2xl italic border-l-4 border-blue-200" style="text-align: justify;">"{{ $produk->filosofi }}"</p>
+                        </div>
+                        
+                        {{-- 2. Latar Belakang (Ditambahkan text-align: justify) --}}
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-2">Latar Belakang</h3>
+                            <p class="leading-relaxed" style="text-align: justify;">{{ $produk->latar_belakang }}</p>
+                        </div>
+                        
+                        {{-- 3. Deskripsi (Ditambahkan text-align: justify) --}}
+                        <div>
+                            <h3 class="font-bold text-slate-900 mb-2">Deskripsi</h3>
+                            <p class="leading-relaxed" style="text-align: justify;">{{ $produk->deskripsi }}</p>
+                        </div>
                     </div>
 
                     {{-- BLOK IDENTITAS TIM PENGEMBANG --}}
