@@ -12,7 +12,8 @@
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<!-- HANYA MENGUBAH BAGIAN INI: Gradasi diagonal linier dari biru super soft, putih di tengah, ke orange super soft -->
+<body class="bg-gradient-to-br from-blue-50/40 via-white to-orange-50/30 text-slate-800 antialiased flex flex-col min-h-screen">
 
     <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
         <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
@@ -29,8 +30,9 @@
         </div>
     </nav>
 
-    <section class="max-w-7xl mx-auto px-8 py-12 flex-grow w-full">
-        <h1 class="text-3xl font-extrabold text-[#0F2857] mb-10">Katalog Produk</h1>
+    <section class="max-w-7xl mx-auto px-7 py-8 flex-grow w-full">
+        <!-- Ukuran tulisan diperkecil dari text-3xl menjadi text-2xl -->
+        <h1 class="text-3xl font-extrabold text-[#0F2857] mb-12">Katalog Produk</h1>
 
         <div class="mb-10 text-center max-w-2xl mx-auto">
             <h1 class="text-2xl font-extrabold text-[#0A193F] mb-2">
