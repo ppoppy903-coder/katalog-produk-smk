@@ -67,8 +67,19 @@ class ValidasiController extends Controller
         $produk->status = ($request->status === 'diterbitkan') ? 'disetujui' : 'ditolak';
         $produk->save();
         
-        // Kirim notifikasi jika disetujui
+        // Kirim notifikasi dan Generate Sertifikat jika disetujui
         if ($produk->status === 'disetujui') {
+            // 1. Generate Nomor Sertifikat Otomatis
+            // Format: CERT/SMK-DEL/TAHUN/BULAN/ID
+            $nomorSertifikat = 'CERT/SMK-DEL/' . date('Y/m') . '/' . str_pad($produk->id, 3, '0', STR_PAD_LEFT);
+            
+            // 2. Update data sertifikat di database
+            $produk->update([
+                'no_sertifikat' => $nomorSertifikat,
+                'tanggal_validasi' => now()
+            ]);
+
+            // 3. Kirim notifikasi ke siswa
             $siswa = $produk->user; 
             if ($siswa) {
                 $siswa->notify(new ProdukDisetujui($produk));
@@ -76,7 +87,7 @@ class ValidasiController extends Controller
         }
         
         return redirect()->route('validasi.produk')
-                         ->with('success', 'Status produk "' . $produk->nama_produk . '" telah diperbarui menjadi ' . $produk->status . '.');
+                         ->with('success', 'Status produk "' . $produk->nama_produk . '" telah disetujui. Sertifikat bernomor ' . ($produk->no_sertifikat ?? '-') . ' telah dibuat.');
     }
 
     /**

@@ -13,7 +13,7 @@
     </style>
 </head>
 <!-- HANYA MENGUBAH BAGIAN INI: Gradasi diagonal linier dari biru super soft, putih di tengah, ke orange super soft -->
-<body class="bg-gradient-to-br from-blue-50/40 via-white to-orange-50/30 text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="bg-gradient-to-br from-blue-50 to-emerald-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
     <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
         <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
@@ -56,7 +56,7 @@
         </div>
 
         {{-- NAVIGASI KATEGORI --}}
-{{-- BIDANG KEAHLIAN - WARNA PREMIUM & HIDUP --}}        
+        {{-- BIDANG KEAHLIAN - WARNA PREMIUM & HIDUP --}}        
         @php
             $kategori_data = [
                 'Makanan dan Minuman' => [
@@ -98,10 +98,11 @@
             ];
         @endphp
 
+        <div class="mb-16">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($kategori_data as $nama => $data)
+                @foreach($kategori_data as $nama => $data)
                 <a href="{{ route('katalog') }}?kategori={{ urlencode($nama) }}" 
-                   class="group bg-gradient-to-br {{ $data['gradient'] }} p-6 rounded-2xl border {{ $data['border'] }} shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between min-h-[145px]">
+                class="group bg-gradient-to-br {{ $data['gradient'] }} p-6 rounded-2xl border {{ $data['border'] }} shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between min-h-[145px]">
                     
                     <div class="space-y-4">
                         {{-- Icon Badge --}}
@@ -120,28 +121,37 @@
                         Jelajahi Produk <i class="fas fa-arrow-right text-[9px]"></i>
                     </div>
                 </a>
-            @endforeach
+                @endforeach
+            </div>
         </div>
 
-        {{-- PRODUK LIST TANPA BORDER --}}
+        {{-- PRODUK LIST DENGAN BORDER --}}
         @if(isset($produk_kelompok) && $produk_kelompok->count() > 0)
-            @foreach($produk_kelompok as $kategori => $items)
-                <div class="mb-16">
-                    <h2 class="text-2xl font-extrabold text-[#0F2857] mb-8">{{ $kategori }}</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        @foreach($items as $produk)
-                            <div class="group bg-white rounded-3xl p-4 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                                <img src="{{ asset('storage/'.$produk->foto_produk) }}" class="w-full h-48 object-cover rounded-2xl mb-4">
-                                <h3 class="font-bold text-md text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>
-                                <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2">{{ $produk->nama_merek }}</p>
-                                <p class="text-xs text-slate-500 line-clamp-2 mb-4 h-8">{{ $produk->deskripsi }}</p>
-                                <a href="{{ route('produk.detail.publik', $produk->id) }}" class="text-xs text-blue-900 font-bold hover:underline">Lihat detail →</a>
+                    @foreach($produk_kelompok as $kategori => $items)
+                        <div class="mb-16">
+                            <h2 class="text-2xl font-extrabold text-[#0F2857] mb-8">{{ $kategori }}</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                @foreach($items as $produk)
+                                    @php
+                                        // LOGIKA PEMBERSIH GAMBAR
+                                        $foto_path = str_replace(['[', ']', '"', '\\'], '', $produk->foto_produk);
+                                        $foto_utama = explode(',', $foto_path)[0];
+                                    @endphp
+                                    <div class="group bg-white rounded-3xl p-4 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-100">
+                                        <img src="{{ asset('storage/'.$foto_utama) }}" 
+                                            alt="{{ $produk->nama_produk }}" 
+                                            class="w-full h-48 object-cover rounded-2xl mb-4 bg-slate-100">
+                                        <h3 class="font-bold text-md text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>
+                                        <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2">{{ $produk->nama_merek }}</p>
+                                        <p class="text-xs text-slate-500 line-clamp-2 mb-4 h-8">{{ $produk->deskripsi }}</p>
+                                        <a href="{{ route('produk.detail.publik', $produk->id) }}" class="text-xs text-blue-900 font-bold hover:underline">Lihat detail →</a>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
-        @else
+                        </div>
+                    @endforeach
+                @else
+
             <div class="text-center py-16 bg-slate-50 rounded-2xl">
                 <p class="text-slate-500 text-sm">Belum ada produk yang ditemukan untuk pencarian ini.</p>
             </div>

@@ -23,6 +23,8 @@ Route::post('/produk/{id}/komentar', [ProdukController::class, 'storeKomentar'])
 // --- RUTE TAMU ---
 Route::middleware(['guest'])->group(function () {
     Route::get('/daftar', fn () => view('daftar'))->name('daftar');
+    
+    // PERBAIKAN: Penulisan ->name('proses.pilih.peran') yang benar
     Route::post('/proses-pilih-peran', function (Request $request) {
         if ($request->role === 'siswa') return redirect()->route('daftar.siswa');
         if ($request->role === 'guru') return redirect()->route('daftar.guru');
@@ -47,10 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-siswa', [DashboardController::class, 'dashboardSiswa'])->name('dashboard.siswa');
     Route::get('/dashboard-guru', [DashboardController::class, 'dashboardGuru'])->name('dashboard.guru');
     
-    // Rute notifikasi yang sudah benar dan mengarah ke DashboardController
     Route::get('/notifikasi', [DashboardController::class, 'notifikasi'])->name('notifikasi');
     Route::get('/notifikasi-guru', [DashboardController::class, 'notifikasiGuru'])->name('notifikasi.guru');
-    
     Route::post('/notifikasi/{id}', [DashboardController::class, 'hapusNotifikasi'])->name('notifikasi.hapus');
 
     Route::get('/pengaturan', [DashboardController::class, 'pengaturan'])->name('pengaturan');
@@ -62,12 +62,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/produk/{id}/update', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk/{id}/ajukan', [ProdukController::class, 'ajukan'])->name('produk.ajukan');
     
-    // --- RUTE MODERASI ULASAN (SISWA) ---
     Route::post('/ulasan/approve/{id}', [ProdukController::class, 'approveKomentar'])->name('ulasan.approve');
     Route::delete('/ulasan/delete/{id}', [ProdukController::class, 'deleteKomentar'])->name('ulasan.delete');
     
     Route::get('/validasi-produk', [ValidasiController::class, 'index'])->name('validasi.produk');
     Route::get('/validasi-produk/{id}', [ValidasiController::class, 'show'])->name('validasi.show');
-    Route::post('/validasi-produk/{id}/update', [ValidasiController::class, 'updateStatus'])->name('produk.validasi');
+    
+    // Route ini yang tadi menyebabkan error
+    Route::post('/validasi-produk/{id}/update', [ValidasiController::class, 'updateStatus'])->name('validasi.updateStatus');
+    
     Route::get('/histori-produk', [ValidasiController::class, 'histori'])->name('guru.histori');
 });
