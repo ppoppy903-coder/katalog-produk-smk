@@ -15,20 +15,21 @@
 <!-- HANYA MENGUBAH BAGIAN INI: Gradasi diagonal linier dari biru super soft, putih di tengah, ke orange super soft -->
 <body class="bg-gradient-to-br from-blue-50 to-emerald-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
-        <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
-                <i class="fas fa-graduation-cap"></i>
-            </div>
+    <nav class="bg-white/90 backdrop-blur-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="flex items-center gap-3">
+            {{-- LOGO BARU --}}
+            <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-10 w-auto">
+            
+            <div class="font-extrabold text-lg text-[#0A2540] tracking-tight">
                 <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
             </div>
         </div>
         <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
-            <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
-            <a href="{{ route('katalog') }}" class="{{ request()->routeIs('katalog') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Katalog</a>
-            <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
-        </div>
-    </nav>
+                <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
+                <a href="{{ route('katalog') }}" class="text-blue-600 border-b-2 border-blue-600 pb-1">Katalog</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Terbaru</a>
+            </div>
+        </nav>
 
     <section class="max-w-7xl mx-auto px-7 py-8 flex-grow w-full">
         <!-- Ukuran tulisan diperkecil dari text-3xl menjadi text-2xl -->

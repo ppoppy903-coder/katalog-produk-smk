@@ -15,12 +15,14 @@
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
     {{-- NAVBAR DIPERBAIKI (Logika Aktif) --}}
-    <nav class="bg-white/90 backdrop-blur-md px-8 py-5 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
-        <div class="font-extrabold text-xl text-[#0A2540] tracking-tight flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white text-sm">
-                <i class="fas fa-graduation-cap"></i>
+    <nav class="bg-white/90 backdrop-blur-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="flex items-center gap-3">
+            {{-- LOGO BARU --}}
+            <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-10 w-auto">
+            
+            <div class="font-extrabold text-lg text-[#0A2540] tracking-tight">
+                <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
             </div>
-            <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
         </div>
         <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
             <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
@@ -29,15 +31,23 @@
         </div>
     </nav>
 
-    {{-- MAIN CONTENT --}}
+   {{-- MAIN CONTENT --}}
     <section class="max-w-7xl mx-auto px-8 py-16 flex-grow w-full">
         <h1 class="text-3xl font-extrabold text-[#0F2857] mb-12">Produk Terbaru</h1>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             @foreach($produk_terbaru as $produk)
-                {{-- Card Modern (Tanpa Border, Shadow halus saat hover) --}}
+                @php
+                    // LOGIKA PEMBERSIH GAMBAR (Agar format JSON di DB tidak merusak tampilan)
+                    $foto_path = str_replace(['[', ']', '"', '\\'], '', $produk->foto_produk);
+                    $foto_utama = explode(',', $foto_path)[0];
+                @endphp
+                
+                {{-- Card Modern --}}
                 <div class="group bg-white rounded-3xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <img src="{{ asset('storage/'.$produk->foto_produk) }}" class="w-full h-56 object-cover rounded-2xl mb-6">
+                    <img src="{{ asset('storage/'.$foto_utama) }}" 
+                         alt="{{ $produk->nama_produk }}" 
+                         class="w-full h-56 object-cover rounded-2xl mb-6 bg-slate-100">
                     <h3 class="font-bold text-lg text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>
                     <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-3">{{ $produk->nama_merek }}</p>
                     <p class="text-sm text-slate-500 line-clamp-2 mb-6 h-10">{{ $produk->deskripsi }}</p>
