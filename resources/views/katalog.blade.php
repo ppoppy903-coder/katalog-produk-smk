@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Produk SMK - Kemendikdasmen PKK</title>
+    <title>Produk Terbaru - PKK Kemendikdasmen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -14,7 +14,7 @@
 </head>
 <!-- HANYA MENGUBAH BAGIAN INI: Gradasi diagonal linier dari biru super soft, putih di tengah, ke orange super soft -->
 <body class="bg-gradient-to-br from-blue-50 to-emerald-50 text-slate-800 antialiased flex flex-col min-h-screen">
-
+    
     <nav class="bg-white/90 backdrop-blur-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
         <div class="flex items-center gap-3">
             {{-- LOGO BARU --}}
@@ -27,8 +27,7 @@
         <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
                 <a href="{{ route('katalog') }}" class="text-blue-600 border-b-2 border-blue-600 pb-1">Katalog</a>
-                <a href="#" class="hover:text-blue-600 transition-colors">Terbaru</a>
-            </div>
+                <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>            </div>
         </nav>
 
     <section class="max-w-7xl mx-auto px-7 py-8 flex-grow w-full">
