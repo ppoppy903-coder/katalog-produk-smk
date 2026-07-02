@@ -61,7 +61,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{id}/update', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk/{id}/ajukan', [ProdukController::class, 'ajukan'])->name('produk.ajukan');
-    
+    Route::get('/api/search-produk', [ProdukController::class, 'searchAutocomplete'])->name('produk.search.autocomplete');
+
     Route::post('/ulasan/approve/{id}', [ProdukController::class, 'approveKomentar'])->name('ulasan.approve');
     Route::delete('/ulasan/delete/{id}', [ProdukController::class, 'deleteKomentar'])->name('ulasan.delete');
     

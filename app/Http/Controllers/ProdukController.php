@@ -74,37 +74,32 @@ class ProdukController extends Controller
         return redirect()->route('dashboard.siswa')->with('success', 'Produk berhasil disimpan sebagai draft!');
     }
 
-    // MENAMPILKAN KATALOG PUBLIK DENGAN FILTER & SEARCH
     public function showKatalog(Request $request) 
     {
         $kategori_filter = $request->query('kategori');
         $search = $request->query('search');
         
+        // Gunakan query builder dasar
         $query = Produk::where('status', 'disetujui');
         
+        // Filter Kategori
         if ($kategori_filter) {
-            $query->where('kategori', 'LIKE', '%' . $kategori_filter . '%');
+            $query->where('kategori', $kategori_filter);
         }
 
+        // Filter Pencarian
         if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('nama_produk', 'LIKE', '%' . $search . '%')
-                  ->orWhere('deskripsi', 'LIKE', '%' . $search . '%');
+                ->orWhere('nama_merek', 'LIKE', '%' . $search . '%')
+                ->orWhere('deskripsi', 'LIKE', '%' . $search . '%')
+                ->orWhere('nama_sekolah', 'LIKE', '%' . $search . '%');
             });
         }
         
         $produk_kelompok = $query->get()->groupBy('kategori');
 
-        $kategori_list = [
-            'Makanan dan Minuman',
-            'Budidaya',
-            'Industri Kreatif, Seni, dan Budaya',
-            'Jasa, Pariwisata, dan Perdagangan',
-            'Manufaktur dan Teknologi Terapan',
-            'Bisnis Digital'
-        ];
-        
-        return view('katalog', compact('produk_kelompok', 'kategori_filter', 'kategori_list'));
+        return view('katalog', compact('produk_kelompok'));
     }
 
     // MENAMPILKAN PRODUK TERBARU
@@ -239,5 +234,19 @@ class ProdukController extends Controller
     public function deleteKomentar($id) {
         DB::table('komentars')->where('id', $id)->delete();
         return back()->with('success', 'Ulasan berhasil dihapus.');
+    }
+
+    public function searchAutocomplete(Request $request)
+    {
+    $search = $request->get('term'); // 'term' adalah keyword yang diketik user
+    $result = Produk::where('status', 'disetujui')
+                ->where(function($q) use ($search) {
+                    $q->where('nama_produk', 'LIKE', '%' . $search . '%')
+                      ->orWhere('nama_merek', 'LIKE', '%' . $search . '%');
+                })
+                ->limit(5) // Batasi hanya 5 hasil agar tidak terlalu panjang ke bawah
+                ->get();
+                
+    return response()->json($result);
     }
 }
