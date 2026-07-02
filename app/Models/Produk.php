@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AnggotaTim;
 
 class Produk extends Model
 {
     // Pastikan tabel di database bernama 'produks'
     protected $table = 'produks';
+    protected $guarded = [];
 
     // Izinkan kolom-kolom ini untuk diisi (Mass Assignment)
     protected $fillable = [
@@ -46,5 +48,11 @@ class Produk extends Model
     public function komentars()
     {
         return $this->hasMany(Komentar::class, 'produk_id');
+    }
+
+    // Relasi ke tabel anggota_tim
+    public function anggotaTim()
+    {
+        return $this->hasMany(AnggotaTim::class, 'produk_id', 'id');
     }
 }

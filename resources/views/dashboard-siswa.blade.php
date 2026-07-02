@@ -26,16 +26,31 @@
         </div>
     @endif
     
-    {{-- Grid Produk --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        @forelse($produks ?? [] as $produk)
-            <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col">
-                <img src="{{ asset('storage/'.$produk->foto_produk) }}" class="w-full h-48 object-cover rounded-2xl mb-5 shadow-inner">
-                
-                <div class="flex-grow">
-                    <h3 class="font-extrabold text-[#0F2857] text-lg mb-1">{{ $produk->nama_produk }}</h3>
-                    <p class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-4">Merek: {{ $produk->nama_merek }}</p>
-                </div>
+        {{-- Grid Produk --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse($produks ?? [] as $produk)
+                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col">
+                        
+                        {{-- Bagian Foto Produk yang Diperbaiki --}}
+                        @php
+                            // 1. Bersihkan string dari karakter JSON
+                            $raw = str_replace(['[', ']', '"', '\\'], ['', '', '', ''], $produk->foto_produk);
+                            
+                            // 2. Pecah string menjadi array berdasarkan koma
+                            $fotos = explode(',', $raw);
+                            
+                            // 3. Ambil foto pertama saja (index 0)
+                            $fotoPertama = trim($fotos[0]);
+                        @endphp
+
+                        {{-- Menampilkan foto pertama saja --}}
+                        <img src="{{ asset('storage/' . $fotoPertama) }}" 
+                            class="w-full h-48 object-cover rounded-2xl mb-5 shadow-inner">
+                        
+                        <div class="flex-grow">
+                            <h3 class="font-extrabold text-[#0F2857] text-lg mb-1">{{ $produk->nama_produk }}</h3>
+                            <p class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-4">Merek: {{ $produk->nama_merek }}</p>
+                        </div>
                 
                 {{-- Bagian Tombol --}}
                 <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-3">

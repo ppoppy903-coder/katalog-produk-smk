@@ -66,10 +66,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/ulasan/delete/{id}', [ProdukController::class, 'deleteKomentar'])->name('ulasan.delete');
     
     Route::get('/validasi-produk', [ValidasiController::class, 'index'])->name('validasi.produk');
-    Route::get('/validasi-produk/{id}', [ValidasiController::class, 'show'])->name('validasi.show');
-    
-    // Route ini yang tadi menyebabkan error
-    Route::post('/validasi-produk/{id}/update', [ValidasiController::class, 'updateStatus'])->name('validasi.updateStatus');
-    
+    Route::get('/validasi-produk/{id}', [ValidasiController::class, 'show'])->name('validasi.show'); 
+    Route::get('/validasi-produk/{id}', [App\Http\Controllers\ValidasiController::class, 'show'])->name('validasi.show');
+    Route::post('/validasi-produk/{id}', [App\Http\Controllers\ValidasiController::class, 'updateStatus'])->name('validasi.updateStatus');
+
     Route::get('/histori-produk', [ValidasiController::class, 'histori'])->name('guru.histori');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sertifikat;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,16 +31,21 @@ class ValidasiController extends Controller
     /**
      * Menampilkan detail produk untuk divalidasi.
      */
+/**
+     * Menampilkan detail produk untuk divalidasi.
+     */
     public function show($id)
     {
         if (Auth::user()->role !== 'guru') {
             return redirect()->route('dashboard.siswa')->with('error', 'Akses ditolak!');
         }
 
+        // PERBAIKAN: Menambahkan ->with('anggotaTim') agar data anggota tim ikut terambil
         $produk = Produk::where('id', $id)
             ->whereHas('user', function($query) {
                 $query->where('npsn', Auth::user()->npsn);
             })
+            ->with('anggotaTim') // <--- Tambahkan baris ini
             ->firstOrFail();
 
         return view('detail-produk', compact('produk'));
@@ -109,4 +115,25 @@ class ValidasiController extends Controller
             
         return view('history-guru', compact('histori'));
     }
+
+    
+        public function setujuiProduk($id)
+        {
+            // 1. Cari produknya
+            $produk = Produk::findOrFail($id);
+            
+            // 2. Update status produk menjadi disetujui
+            $produk->update(['status' => 'disetujui']);
+            
+            // 3. Otomatis buat sertifikat untuk siswa pemilik produk
+            // Pastikan tabel produk punya kolom 'user_id' yang merujuk ke siswa
+            Sertifikat::create([
+                'produk_id'        => $produk->id,
+                'user_id'          => $produk->user_id, // Siswa pemilik produk
+                'nomor_sertifikat' => 'PKK-' . date('Y') . '-' . $produk->id, // Format nomor sertifikat
+                'status'           => 'pending', // Menunggu proses kirim ke Credly
+            ]);
+
+            return back()->with('success', 'Produk disetujui dan sertifikat sedang diproses!');
+        }
 }

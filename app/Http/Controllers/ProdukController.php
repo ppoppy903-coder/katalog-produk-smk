@@ -166,8 +166,11 @@ class ProdukController extends Controller
 
     public function edit($id)
     {
-        $produk = DB::table('produks')->where('id', $id)->where('user_id', Auth::id())->first();
+        // Menggunakan Model \App\Models\Produk, BUKAN DB::table
+        $produk = \App\Models\Produk::with('anggotaTim')->where('id', $id)->where('user_id', Auth::id())->first();
+        
         if (!$produk) return redirect()->route('dashboard.siswa')->withErrors('Produk tidak ditemukan!');
+        
         return view('edit-produk', compact('produk'));
     }
 
@@ -190,6 +193,7 @@ class ProdukController extends Controller
             'lokasi'         => $request->lokasi,
             'link_maps'      => $request->link_maps,
             'sosmed'         => $request->sosmed,
+            'no_wa'          => $request->no_wa, // TAMBAHKAN BARIS INI
             'updated_at'     => now(),
         ];
 

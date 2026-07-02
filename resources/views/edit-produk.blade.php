@@ -2,86 +2,151 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Produk - PKK SMK Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .input-3d { 
+            width: 100%; padding: 1rem; background: white; border: 1px solid #e2e8f0; border-radius: 1rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); outline: none; transition: all 0.3s ease; 
+        }
+        .input-3d:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); border-color: #3b82f6; }
+    </style>
 </head>
-<body class="bg-[#F8FAFC]">
-    <div class="max-w-7xl mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-6 text-[#0F2857]">Edit Produk</h1>
-        
-        <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<body class="bg-[#F1F5F9] flex h-screen overflow-hidden">
+
+    @include('layouts.sidebar-siswa')
+
+    <main class="flex-1 overflow-y-auto p-12">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-extrabold text-[#0A193F] mb-8">Edit Produk</h2>
+
+            <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8 pb-20">
+                @csrf
+                @method('PUT')
                 
-                <div class="lg:col-span-2 space-y-8">
-                    {{-- Bagian 1: Identitas Merek --}}
-                    <section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 class="font-bold mb-4 text-[#0F2857]">1. Identitas Merek</h2>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="col-span-2"><label class="text-[10px] font-bold text-slate-500 uppercase">Nama Merek</label><input type="text" name="nama_merek" value="{{ $produk->nama_merek }}" class="w-full p-3 bg-slate-50 border rounded-lg outline-none"></div>
-                            <div class="col-span-2"><label class="text-[10px] font-bold text-slate-500 uppercase">Filosofi Merek</label><textarea name="filosofi" rows="3" class="w-full p-3 bg-slate-50 border rounded-lg outline-none">{{ $produk->filosofi }}</textarea></div>
-                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">NIB</label><input type="text" name="nib" value="{{ $produk->nib }}" class="w-full p-3 bg-slate-50 border rounded-lg outline-none"></div>
-                            
-                            {{-- TAMBAHAN TAHUN NIB --}}
-                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Tahun NIB</label><input type="number" name="tahun_nib" value="{{ $produk->tahun_nib }}" class="w-full p-3 bg-slate-50 border rounded-lg outline-none"></div>
+                {{-- SECTION 1: IDENTITAS --}}
+                <section class="bg-white p-8 rounded-3xl border-l-8 border-[#0A193F] shadow-lg shadow-blue-900/5">
+                    <h3 class="text-lg font-extrabold text-[#0A193F] mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">1</span> Identitas Merek & Bidang
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Merek</label><input type="text" name="nama_merek" value="{{ $produk->nama_merek }}" required class="input-3d"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Kategori Bidang</label>
+                            <select name="kategori" class="input-3d" required>
+                                @foreach(['Makanan dan Minuman', 'Budidaya', 'Industri Kreatif, Seni, dan Budaya', 'Jasa, Pariwisata, dan Perdagangan', 'Manufaktur dan Teknologi Terapan', 'Bisnis Digital'] as $kat)
+                                    <option value="{{ $kat }}" {{ $produk->kategori == $kat ? 'selected' : '' }}>{{ $kat }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </section>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Logo Merek (Biarkan kosong jika tidak ganti)</label><input type="file" name="logo" class="input-3d"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Tahun NIB</label><input type="number" name="tahun_nib" value="{{ $produk->tahun_nib }}" required class="input-3d"></div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">NIB</label>
+                            <input type="text" name="nib" id="nibInput" value="{{ $produk->nib }}" readonly required class="input-3d bg-slate-50">
+                            <label class="mt-4 flex items-center gap-3 cursor-pointer"><input type="checkbox" name="tampilkan_nib" id="nibCheckbox" value="1" {{ $produk->tampilkan_nib ? 'checked' : '' }} class="w-5 h-5 rounded text-[#0A193F]"><span class="text-sm font-semibold text-slate-700">Aktifkan & Tampilkan NIB</span></label>
+                        </div>
+                        <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Filosofi Merek</label><textarea name="filosofi" rows="2" required class="input-3d">{{ $produk->filosofi }}</textarea></div>
+                    </div>
+                </section>
 
-                    {{-- Bagian 2: Detail Produk --}}
-                    <section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 class="font-bold mb-4 text-[#0F2857]">2. Detail Produk / Jasa</h2>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase">Nama Produk / Jasa</label>
-                        <input type="text" name="nama_produk" value="{{ $produk->nama_produk }}" class="w-full p-3 bg-slate-50 border rounded-lg mb-4 outline-none">
-                        
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            {{-- UBAH HARGA MENJADI TEXT --}}
-                            <div><label class="text-[10px] font-bold text-slate-500 uppercase">Harga</label><input type="text" name="harga" value="{{ $produk->harga }}" placeholder="Contoh: Rp 10.000 / Box" class="w-full p-3 bg-slate-50 border rounded-lg outline-none"></div>
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-500 uppercase">Kategori</label>
-                                <select name="kategori" class="w-full p-3 bg-slate-50 border rounded-lg outline-none">
-                                    @foreach(['Teknologi Konstruksi dan Properti', 'Teknologi Manufaktur dan Rekayasa', 'Energi dan Pertambangan', 'Teknologi Informasi', 'Kesehatan dan Pekerjaan Sosial', 'Agribisnis dan Agriteknologi', 'Kemaritiman', 'Bisnis dan Manajemen', 'Pariwisata', 'Seni dan Ekonomi Kreatif'] as $kat)
-                                        <option value="{{ $kat }}" {{ $produk->kategori == $kat ? 'selected' : '' }}>{{ $kat }}</option>
-                                    @endforeach
-                                </select>
+                {{-- SECTION 2: DETAIL PRODUK --}}
+                <section class="bg-white p-8 rounded-3xl border-l-8 border-blue-500 shadow-lg shadow-blue-900/5">
+                    <h3 class="text-lg font-extrabold text-[#0A193F] mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">2</span> Detail Produk/Jasa
+                    </h3>
+                    <div class="space-y-6">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Produk</label><input type="text" name="nama_produk" value="{{ $produk->nama_produk }}" required class="input-3d"></div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Foto Produk (Maksimal 6 Foto)</label>
+                            <input type="file" name="foto_produk[]" multiple accept="image/*" class="input-3d" onchange="checkFileCount(this)">
+                        </div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Latar Belakang</label><textarea name="latar_belakang" rows="2" required class="input-3d">{{ $produk->latar_belakang }}</textarea></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Deskripsi Produk</label><textarea name="deskripsi" rows="2" required class="input-3d">{{ $produk->deskripsi }}</textarea></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Harga</label><input type="text" name="harga" value="{{ $produk->harga }}" required class="input-3d"></div>
+                    </div>
+                </section>
+
+                {{-- SECTION 3: KONTAK & LOKASI --}}
+                <section class="bg-white p-8 rounded-3xl border-l-8 border-emerald-500 shadow-lg shadow-emerald-900/5">
+                    <h3 class="text-lg font-extrabold text-[#0A193F] mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm">3</span> Kontak & Lokasi
+                    </h3>
+                    <div class="space-y-6">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Lokasi Produksi</label><textarea name="lokasi" required rows="2" class="input-3d">{{ $produk->lokasi }}</textarea></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Link Google Maps</label><input type="url" name="link_maps" value="{{ $produk->link_maps }}" required class="input-3d"></div>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Akun Media Sosial</label><input type="text" name="sosmed" value="{{ $produk->sosmed }}" required class="input-3d"></div>
+                        </div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nomor WhatsApp</label>
+                        <input type="text" name="no_wa" value="{{ $produk->no_wa ?? '' }}" required class="input-3d">
+                    </div>
+                </section>
+
+                {{-- SECTION 4: IDENTITAS TIM --}}
+                <section class="bg-white p-8 rounded-3xl border-l-8 border-indigo-500 shadow-lg shadow-indigo-900/5">
+                    <h3 class="text-lg font-extrabold text-[#0A193F] mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">4</span> Identitas Tim
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Sekolah</label><input type="text" name="nama_sekolah" value="{{ $produk->nama_sekolah }}" required class="input-3d"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Jurusan</label><input type="text" name="jurusan" value="{{ $produk->jurusan }}" required class="input-3d"></div>
+                    </div>
+                    
+                    <div class="mt-8 space-y-4">
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Daftar Anggota Tim</label>
+                        <div id="tim-container" class="space-y-4">
+                            @foreach($produk->anggotaTim as $anggota)
+                            <div class="flex gap-4 items-center bg-slate-50 p-4 rounded-2xl">
+                                <input type="text" name="tim_nama[]" value="{{ $anggota->nama_siswa }}" placeholder="Nama Lengkap Anggota" class="input-3d" required>
+                                <input type="text" name="tim_nis[]" value="{{ $anggota->nis }}" placeholder="NIS/NISN" class="input-3d" required>
                             </div>
+                            @endforeach
                         </div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase">Latar Belakang</label>
-                        <textarea name="latar_belakang" rows="3" class="w-full p-3 bg-slate-50 border rounded-lg mb-4 outline-none">{{ $produk->latar_belakang }}</textarea>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase">Deskripsi Produk</label>
-                        <textarea name="deskripsi" rows="3" class="w-full p-3 bg-slate-50 border rounded-lg outline-none">{{ $produk->deskripsi }}</textarea>
-                    </section>
-                </div>
+                        <button type="button" onclick="tambahAnggota()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition">
+                            <i class="fa-solid fa-plus mr-1"></i> Tambah Anggota Tim
+                        </button>
+                    </div>
 
-                {{-- Bagian Sidebar (File & Kontak) --}}
-                <div class="space-y-8">
-                    <section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block">Ganti Logo Merek</label>
-                        <input type="file" name="logo" class="w-full p-2 bg-slate-50 border rounded-lg mb-4">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase mb-2 block">Ganti Foto Produk</label>
-                        <input type="file" name="foto_produk" class="w-full p-2 bg-slate-50 border rounded-lg">
-                    </section>
+                    <div class="mt-8">
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Ganti Foto Tim (Opsional)</label>
+                        <input type="file" name="foto_tim" accept="image/*" class="input-3d">
+                    </div>
+                </section>
 
-                    <section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                        <h2 class="font-bold mb-4 text-[#0F2857]">3. Informasi Kontak & Lokasi</h2>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase">Lokasi Produksi</label>
-                        <input type="text" name="lokasi" value="{{ $produk->lokasi }}" class="w-full p-3 bg-slate-50 border rounded-lg mb-3 outline-none">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase">Link Google Maps</label>
-                        <input type="url" name="link_maps" value="{{ $produk->link_maps }}" class="w-full p-3 bg-slate-50 border rounded-lg mb-3 outline-none">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase">Media Sosial</label>
-                        <input type="text" name="sosmed" value="{{ $produk->sosmed }}" class="w-full p-3 bg-slate-50 border rounded-lg outline-none">
-                    </section>
-                </div>
-            </div>
+                <button type="submit" class="w-full bg-[#0A193F] text-white py-5 rounded-2xl font-bold hover:bg-blue-900 transition-all text-lg">
+                    Simpan Perubahan Produk <i class="fa-solid fa-save ml-2"></i>
+                </button>
+            </form>
+        </div>
+    </main>
 
-            <div class="mt-8 flex justify-end gap-4 border-t pt-6">
-                <a href="{{ route('dashboard.siswa') }}" class="px-8 py-3 border border-slate-300 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Batal</a>
-                <button type="submit" class="px-8 py-3 bg-[#0F2857] text-white rounded-xl font-bold hover:bg-blue-900 transition">Simpan Perubahan</button>
-            </div>
-        </form>
-    </div>
+<script>
+    const checkbox = document.getElementById('nibCheckbox');
+    const input = document.getElementById('nibInput');
+    checkbox.addEventListener('change', function() {
+        input.readOnly = !this.checked;
+        input.className = this.checked ? "input-3d" : "input-3d bg-slate-50";
+    });
+
+    function checkFileCount(input) {
+        if (input.files.length > 6) { alert("Maksimal 6 foto!"); input.value = ""; }
+    }
+
+    let count = {{ $produk->anggotaTim->count() }};
+    function tambahAnggota() {
+        if (count < 5) { 
+            count++;
+            const div = document.createElement('div');
+            div.className = "flex gap-4 items-center bg-slate-50 p-4 rounded-2xl";
+            div.innerHTML = `<input type="text" name="tim_nama[]" placeholder="Nama Lengkap Anggota" class="input-3d" required>
+                             <input type="text" name="tim_nis[]" placeholder="NIS/NISN" class="input-3d" required>`;
+            document.getElementById('tim-container').appendChild(div);
+        } else { alert("Maksimal 5 anggota tim."); }
+    }
+</script>
 </body>
 </html>

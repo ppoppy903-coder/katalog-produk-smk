@@ -57,7 +57,7 @@
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Tahun NIB</label><input type="number" name="tahun_nib" required class="input-3d" placeholder="Contoh: 2026"></div>
                         <div class="md:col-span-2">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">NIB</label>
-                            <input type="text" name="nib" id="nibInput" disabled required class="input-3d bg-slate-50">
+                            <input type="text" name="nib" id="nibInput" readonly required class="input-3d bg-slate-50">
                             <label class="mt-4 flex items-center gap-3 cursor-pointer"><input type="checkbox" name="tampilkan_nib" id="nibCheckbox" value="1" class="w-5 h-5 rounded text-[#0A193F]"><span class="text-sm font-semibold text-slate-700">Aktifkan & Tampilkan NIB</span></label>
                         </div>
                         <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Filosofi Merek</label><textarea name="filosofi" rows="2" required class="input-3d"></textarea></div>
@@ -106,6 +106,21 @@
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Jurusan</label><input type="text" name="jurusan" required class="input-3d"></div>
                     </div>
                     
+                    {{-- TAMBAHAN: CONTAINER ANGGOTA TIM --}}
+                    <div class="mt-8 space-y-4">
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Daftar Anggota Tim</label>
+                        <div id="tim-container" class="space-y-4">
+                            {{-- Input Anggota Pertama (Default) --}}
+                            <div class="flex gap-4 items-center bg-slate-50 p-4 rounded-2xl">
+                                <input type="text" name="tim_nama[]" placeholder="Nama Lengkap Anggota" class="input-3d" required>
+                                <input type="text" name="tim_nis[]" placeholder="NIS/NISN" class="input-3d" required>
+                            </div>
+                        </div>
+                        <button type="button" onclick="tambahAnggota()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition">
+                            <i class="fa-solid fa-plus mr-1"></i> Tambah Anggota Tim
+                        </button>
+                    </div>
+
                     <div class="mt-8">
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Foto Tim Pengembang (Foto Bersama Siswa & Guru)</label>
                         <input type="file" name="foto_tim" accept="image/*" required class="input-3d">
@@ -120,13 +135,15 @@
         </div>
     </main>
 
-    <script>
+<script>
         // Toggle NIB Input
         const checkbox = document.getElementById('nibCheckbox');
         const input = document.getElementById('nibInput');
+
         checkbox.addEventListener('change', function() {
-            input.disabled = !this.checked;
+            input.readOnly = !this.checked; // Ubah dari disabled ke readOnly
             input.className = this.checked ? "input-3d" : "input-3d bg-slate-50";
+            if (this.checked) input.focus(); // Opsional: fokus ke input saat aktif
         });
 
         // Validasi jumlah file foto produk
@@ -137,18 +154,18 @@
             }
         }
 
-        // Tambah anggota tim
-        let count = 1;
+        // --- TAMBAHKAN ATAU PERBAIKI BAGIAN INI DI SINI ---
+        let count = 1; // Pastikan variabel count ini didefinisikan
         function tambahAnggota() {
-            if (count < 4) {
+            if (count < 5) { 
                 count++;
                 const div = document.createElement('div');
                 div.className = "flex gap-4 items-center bg-slate-50 p-4 rounded-2xl";
-                div.innerHTML = `<input type="text" name="tim_nama[]" placeholder="Nama Anggota" class="input-3d" required>
-                                 <input type="file" name="tim_foto[]" accept="image/*" class="input-3d" required>`;
+                div.innerHTML = `<input type="text" name="tim_nama[]" placeholder="Nama Lengkap Anggota" class="input-3d" required>
+                                 <input type="text" name="tim_nis[]" placeholder="NIS/NISN" class="input-3d" required>`;
                 document.getElementById('tim-container').appendChild(div);
             } else {
-                alert("Maksimal 4 anggota tim.");
+                alert("Maksimal 5 anggota tim.");
             }
         }
     </script>
