@@ -14,11 +14,11 @@
             theme: {
                 extend: {
                     colors: {
-                        ink:     '#16213E', /* dark navy, matches site headings */
-                        indigo:  '#5B6EF5', /* gradient start, matches "Lihat Katalog" button */
-                        violet:  '#8B5CF6', /* gradient mid */
-                        sunset:  '#F97316', /* gradient end, matches "& Jiwa Wirausaha" text */
-                        teal:    '#10B981', /* matches "Daftar Sekarang" button */
+                        ink:     '#16213E',
+                        indigo:  '#5B6EF5',
+                        violet:  '#8B5CF6',
+                        sunset:  '#F97316',
+                        teal:    '#10B981',
                         peach:   '#FBE7D6',
                         mint:    '#DEF3E7',
                         lav:     '#EAE5FB',
@@ -36,39 +36,15 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #FBFCFF; }
         .font-display { font-family: 'Fraunces', serif; }
         .eyebrow { letter-spacing: 0.14em; }
-
-
-        .mySwiper {
-            --swiper-navigation-color: #5B6EF5;
-            --swiper-navigation-size: 18px;
-        }
-        .mySwiper .swiper-button-next,
-        .mySwiper .swiper-button-prev {
-            background: rgba(255,255,255,0.9);
-            width: 38px;
-            height: 38px;
-            border-radius: 9999px;
-            box-shadow: 0 4px 14px rgba(91,110,245,0.2);
-        }
-        .mySwiper .swiper-button-next:after,
-        .mySwiper .swiper-button-prev:after {
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-
-        .social-pill { transition: transform .18s ease, box-shadow .18s ease; }
-        .social-pill:hover { transform: translateY(-3px); }
-
-
+        .mySwiper { --swiper-navigation-color: #5B6EF5; --swiper-navigation-size: 18px; }
+        .mySwiper .swiper-button-next, .mySwiper .swiper-button-prev { background: rgba(255,255,255,0.9); width: 38px; height: 38px; border-radius: 9999px; box-shadow: 0 4px 14px rgba(91,110,245,0.2); }
+        .mySwiper .swiper-button-next:after, .mySwiper .swiper-button-prev:after { font-size: 14px; font-weight: 700; }
         .soft-divider { border-top: 1.5px dashed rgba(22,33,62,0.12); }
     </style>
 </head>
 <body class="text-ink">
 
-
     <div class="max-w-6xl mx-auto px-4 py-10">
-
 
         <a href="{{ route('katalog') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-indigo/80 hover:text-indigo transition mb-6 group">
             <span class="w-8 h-8 rounded-full bg-white border border-indigo/15 flex items-center justify-center shadow-sm group-hover:-translate-x-0.5 transition">
@@ -76,7 +52,6 @@
             </span>
             Kembali ke Katalog
         </a>
-
 
         {{-- HEADER --}}
         <div class="bg-gradient-to-br from-sky via-white to-lav px-8 py-7 rounded-3xl mb-8 border border-indigo/10 flex items-center justify-between">
@@ -91,12 +66,9 @@
             </span>
         </div>
 
-
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {{-- KIRI --}}
             <div class="lg:col-span-8 space-y-6">
-
-
                 <div class="bg-white p-3 rounded-3xl shadow-sm border border-indigo/10">
                     <div class="swiper mySwiper w-full h-96 rounded-2xl overflow-hidden">
                         <div class="swiper-wrapper">
@@ -112,17 +84,12 @@
                     </div>
                 </div>
 
-
                 <div class="bg-white p-8 rounded-3xl border border-indigo/10 shadow-sm space-y-6">
                     <div>
                         <p class="eyebrow text-xs font-bold text-indigo uppercase mb-1">Merek &mdash; {{ $produk->nama_merek }}</p>
                         <h1 class="font-display text-4xl font-semibold text-ink leading-tight">{{ $produk->nama_produk }}</h1>
                     </div>
-
-
                     <div class="h-1.5 w-16 rounded-full bg-gradient-to-r from-sky-500 via-teal to-sunset"></div>
-
-
                     <div class="space-y-6 text-slate-500 text-justify">
                         <div>
                             <h3 class="font-display font-semibold text-lg text-ink mb-2 flex items-center gap-2">
@@ -163,21 +130,17 @@
                                     <p class="font-semibold text-ink">{{ $produk->jurusan ?? '-' }}</p>
                                 </div>
                             </div>
-
-                            {{-- TAMBAHKAN BAGIAN INI AGAR NAMA MUNCUL --}}
                             <p class="text-[10px] eyebrow uppercase font-bold text-ink/40 mb-3">Anggota Tim</p>
                             <div class="flex flex-wrap gap-2 mb-6">
                                 @forelse($produk->anggotaTim ?? [] as $anggota)
                                     <span class="bg-white border border-indigo/10 text-indigo px-4 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-2">
-                                        <i class="fa-solid fa-user text-[10px] opacity-50"></i> 
-                                        {{ $anggota->nama_siswa ?? $anggota->nama }}
+                                        <i class="fa-solid fa-user text-[10px] opacity-50"></i> {{ $anggota->nama_siswa ?? $anggota->nama }}
                                     </span>
                                 @empty
                                     <p class="text-xs text-slate-400 italic">Data anggota tim belum tersedia.</p>
                                 @endforelse
                             </div>
-
-                             @if($produk->foto_tim)
+                            @if($produk->foto_tim)
                                 <p class="text-[10px] eyebrow uppercase font-bold text-ink/40 mb-2">Foto Tim</p>
                                 <img src="{{ asset('storage/'.$clean($produk->foto_tim)) }}" class="w-full h-48 object-cover rounded-2xl border-4 border-white shadow-md">
                             @endif
@@ -186,15 +149,12 @@
                 </div>
             </div>
 
-
             {{-- KANAN --}}
             <div class="lg:col-span-4 space-y-6">
                 <div class="bg-white p-8 rounded-3xl border border-indigo/10 shadow-sm space-y-6">
                     <img src="{{ asset('storage/'.$clean($produk->logo)) }}" class="w-28 h-28 rounded-3xl object-cover shadow-md border-4 border-lav/50">
 
-
                     <div class="space-y-3">
-                        {{-- Bagian Harga & Lokasi yang Dirapikan --}}
                         <div class="bg-peach/60 p-4 rounded-2xl flex flex-col gap-1">
                             <p class="text-[10px] eyebrow font-bold text-ink/50 uppercase tracking-widest">Harga</p>
                             <p class="font-display font-semibold text-ink text-lg">{{ $produk->harga }}</p>
@@ -205,41 +165,37 @@
                         </div>
                     </div>
 
+                    {{-- SOSIAL MEDIA & GMAPS --}}
+                    <div class="bg-white border border-indigo/10 rounded-2xl p-5 shadow-sm">
+                        <p class="text-[9px] eyebrow font-bold text-ink/40 uppercase mb-4 tracking-widest">Informasi Tambahan</p>
+                        <div class="space-y-3">
+                            {{-- Menggunakan teks "Kunjungi Sosial Media" agar lebih umum --}}
+                            @if(!empty($produk->sosmed))
+                                <a href="{{ (strpos($produk->sosmed, 'http') === 0) ? $produk->sosmed : 'https://' . ltrim($produk->sosmed, '@') }}" 
+                                target="_blank" class="flex items-center text-sm font-semibold text-indigo hover:text-blue-700 transition">
+                                    <i class="fab fa-instagram mr-3 text-lg"></i> Kunjungi Sosial Media
+                                </a>
+                            @endif
 
-                    {{-- SOSIAL MEDIA TIM --}}
-                    <div class="bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl p-5">
-                        <p class="text-[9px] eyebrow font-bold text-white/70 uppercase mb-3 text-center tracking-widest">Kontak Media</p>
-                       
-                        {{-- Jarak dikurangi dengan gap-2 dan ukuran ikon sedikit disesuaikan --}}
-                        <div class="flex justify-center gap-2">
-                            {{-- Ikon Instagram --}}
-                            <a href="{{ $produk->sosmed ?? '#' }}" target="_blank"
-                            class="social-pill w-10 h-10 rounded-full bg-white flex items-center justify-center text-pink-500 shadow-md hover:scale-110 hover:bg-pink-50 transition-all duration-300">
-                            <i class="fa-brands fa-instagram text-lg"></i>
-                            </a>
+                            @if(!empty($produk->tiktok))
+                                <a href="{{ (strpos($produk->tiktok, 'http') === 0) ? $produk->tiktok : 'https://' . ltrim($produk->tiktok, '@') }}" 
+                                target="_blank" class="flex items-center text-sm font-semibold text-slate-700 hover:text-black transition">
+                                    <i class="fab fa-tiktok mr-3 text-lg"></i> Kunjungi TikTok
+                                </a>
+                            @endif
 
-
-                            {{-- Ikon TikTok --}}
-                            <a href="{{ $produk->tiktok ?? 'https://tiktok.com' }}" target="_blank"
-                            class="social-pill w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-700 shadow-md hover:scale-110 hover:bg-slate-100 transition-all duration-300">
-                            <i class="fa-brands fa-tiktok text-lg"></i>
-                            </a>
-
-
-                            {{-- Ikon Google Maps --}}
-                            <a href="{{ $produk->gmaps ?? 'https://maps.google.com' }}" target="_blank"
-                            class="social-pill w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-500 shadow-md hover:scale-110 hover:bg-red-50 transition-all duration-300">
-                            <i class="fa-solid fa-location-dot text-lg"></i>
-                            </a>
+                            @if(!empty($produk->link_maps))
+                                <a href="{{ $produk->link_maps }}" target="_blank" class="flex items-center text-sm font-semibold text-red-500 hover:text-red-700 transition">
+                                    <i class="fas fa-map-marked-alt mr-3 text-lg"></i> Lihat Google Maps
+                                </a>
+                            @endif
                         </div>
                     </div>
-
 
                     <a href="https://wa.me/{{ $produk->user->no_hp ?? '' }}" target="_blank" class="block w-full text-center bg-gradient-to-r from-teal to-emerald-600 hover:opacity-90 text-white font-bold py-4 rounded-2xl transition shadow-md">
                         <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Hubungi Penjual
                     </a>
                 </div>
-
 
                 {{-- FORM ULASAN --}}
                 <div class="bg-white rounded-3xl border border-indigo/10 shadow-sm overflow-hidden">
@@ -265,7 +221,6 @@
             </div>
         </div>
     </div>
-
 
     <script>
         new Swiper(".mySwiper", { navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }, loop: true });
