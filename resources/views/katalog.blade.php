@@ -17,14 +17,12 @@
     <nav class="bg-white/90 backdrop-blur-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-10 w-auto">
-            <div class="font-extrabold text-lg text-[#0A2540] tracking-tight">
-                <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
-            </div>
+            <div class="font-extrabold text-lg text-[#0A2540] tracking-tight"><span>Proyek Kreatif & Kewirausahaan Murid SMK</span></div>
         </div>
         <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
             <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
             <a href="{{ route('katalog') }}" class="text-blue-600 border-b-2 border-blue-600 pb-1">Katalog</a>
-            <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
+            <a href="{{ route('produk.terbaru') }}" class="hover:text-blue-600 transition-colors">Terbaru</a>
         </div>
     </nav>
 
@@ -87,7 +85,7 @@
             </form>
         </div>
 
-        {{-- 3. PRODUK LIST --}}
+        {{-- Produk List --}}
         @if(isset($produk_kelompok) && $produk_kelompok->count() > 0)
             @foreach($produk_kelompok as $kategori => $items)
                 <div class="mb-16">
@@ -95,11 +93,18 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @foreach($items as $produk)
                             @php
-                                $foto_path = str_replace(['[', ']', '"', '\\'], '', $produk->foto_produk);
-                                $foto_utama = explode(',', $foto_path)[0];
+                                // LOGIKA BARU: Mengambil gambar dari array JSON secara aman
+                                $foto_array = json_decode($produk->foto_produk, true);
+                                $foto_pertama = (is_array($foto_array) && count($foto_array) > 0) ? $foto_array[0] : null;
                             @endphp
-                            <div class="group bg-white rounded-3xl p-4 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-100">
-                                <img src="{{ asset('storage/'.$foto_utama) }}" alt="{{ $produk->nama_produk }}" class="w-full h-48 object-cover rounded-2xl mb-4 bg-slate-100">
+                            <div class="group bg-white rounded-3xl p-4 hover:shadow-2xl transition-all duration-300 border border-slate-100">
+                                @if($foto_pertama)
+                                    <img src="{{ asset('storage/'.$produk->logo) }}" 
+                                        alt="{{ $produk->nama_produk }}" 
+                                        class="w-full h-48 object-cover rounded-2xl mb-4 bg-slate-100">
+                                @else
+                                    <div class="w-full h-48 bg-slate-200 rounded-2xl mb-4 flex items-center justify-center text-slate-400">No Image</div>
+                                @endif
                                 <h3 class="font-bold text-md text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>
                                 <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2">{{ $produk->nama_merek }}</p>
                                 <p class="text-xs text-slate-500 line-clamp-2 mb-4 h-8">{{ $produk->deskripsi }}</p>

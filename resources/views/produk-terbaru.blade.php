@@ -45,7 +45,7 @@
                 
                 {{-- Card Modern --}}
                 <div class="group bg-white rounded-3xl p-5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <img src="{{ asset('storage/'.$foto_utama) }}" 
+                    <img src="{{ asset('storage/'.$produk->logo) }}" 
                          alt="{{ $produk->nama_produk }}" 
                          class="w-full h-56 object-cover rounded-2xl mb-6 bg-slate-100">
                     <h3 class="font-bold text-lg text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>

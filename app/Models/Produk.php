@@ -53,6 +53,6 @@ class Produk extends Model
     // Relasi ke tabel anggota_tim
     public function anggotaTim()
     {
-        return $this->hasMany(AnggotaTim::class, 'produk_id', 'id');
+        return $this->hasMany(AnggotaTim::class, 'produk_id');
     }
 }

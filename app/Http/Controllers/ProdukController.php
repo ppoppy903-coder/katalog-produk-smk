@@ -115,7 +115,12 @@ class ProdukController extends Controller
     // MENAMPILKAN DETAIL PUBLIK
     public function showPublic($id)
     {
-        $produk = Produk::where('id', $id)->where('status', 'disetujui')->firstOrFail();
+        // Menambahkan ->with('anggotaTim') agar data anggota tim ikut terambil
+        $produk = Produk::with('anggotaTim')
+                    ->where('id', $id)
+                    ->where('status', 'disetujui')
+                    ->firstOrFail();
+                    
         return view('detail-produk-publik', compact('produk'));
     }
 
@@ -171,9 +176,11 @@ class ProdukController extends Controller
 
     public function update(Request $request, $id)
     {
+        // 1. Validasi akses
         $produk = DB::table('produks')->where('id', $id)->where('user_id', Auth::id())->first();
         if (!$produk) return redirect()->route('dashboard.siswa')->withErrors('Akses ditolak!');
 
+        // 2. Siapkan data update produk
         $data = [
             'nama_merek'     => $request->nama_merek,
             'kategori'       => $request->kategori,
@@ -188,27 +195,52 @@ class ProdukController extends Controller
             'lokasi'         => $request->lokasi,
             'link_maps'      => $request->link_maps,
             'sosmed'         => $request->sosmed,
-            'no_wa'          => $request->no_wa, // TAMBAHKAN BARIS INI
+            'no_wa'          => $request->no_wa,
             'updated_at'     => now(),
         ];
 
+        // 3. Proses File (Logo, Foto Produk, Foto Tim)
         if ($request->hasFile('logo')) {
             if ($produk->logo) Storage::disk('public')->delete($produk->logo);
             $data['logo'] = $request->file('logo')->store('logos', 'public');
         }
-        
-        // Catatan: Jika update foto produk, logic-nya harus disesuaikan dengan json_decode/encode juga.
+
         if ($request->hasFile('foto_produk')) {
             if ($produk->foto_produk) {
                 $oldPhotos = json_decode($produk->foto_produk);
-                foreach ($oldPhotos as $oldPhoto) Storage::disk('public')->delete($oldPhoto);
+                if (is_array($oldPhotos)) {
+                    foreach ($oldPhotos as $oldPhoto) Storage::disk('public')->delete($oldPhoto);
+                }
             }
             $newPhotos = [];
             foreach ($request->file('foto_produk') as $file) $newPhotos[] = $file->store('produk_images', 'public');
             $data['foto_produk'] = json_encode($newPhotos);
         }
 
+        if ($request->hasFile('foto_tim')) {
+            if ($produk->foto_tim) Storage::disk('public')->delete($produk->foto_tim);
+            $data['foto_tim'] = $request->file('foto_tim')->store('tim_images', 'public');
+        }
+
+        // 4. Update data produk utama
         DB::table('produks')->where('id', $id)->update($data);
+
+        // 5. UPDATE DATA TIM (Bagian yang Anda perlukan)
+        if ($request->has('tim_nama')) {
+            // Hapus anggota lama
+            \App\Models\AnggotaTim::where('produk_id', $id)->delete();
+            
+            // Simpan anggota baru dari input array
+            foreach ($request->tim_nama as $index => $nama) {
+                if (!empty($nama)) {
+                    \App\Models\AnggotaTim::create([
+                        'produk_id'  => $id,
+                        'nama_siswa' => $nama,
+                        'nis'        => $request->tim_nis[$index] ?? null
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('dashboard.siswa')->with('success', 'Perubahan produk berhasil disimpan!');
     }

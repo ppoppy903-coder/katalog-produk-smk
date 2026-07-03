@@ -130,19 +130,28 @@
                                     <p class="font-semibold text-ink">{{ $produk->jurusan ?? '-' }}</p>
                                 </div>
                             </div>
+                            
                             <p class="text-[10px] eyebrow uppercase font-bold text-ink/40 mb-3">Anggota Tim</p>
                             <div class="flex flex-wrap gap-2 mb-6">
-                                @forelse($produk->anggotaTim ?? [] as $anggota)
-                                    <span class="bg-white border border-indigo/10 text-indigo px-4 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-2">
-                                        <i class="fa-solid fa-user text-[10px] opacity-50"></i> {{ $anggota->nama_siswa ?? $anggota->nama }}
-                                    </span>
+                                @php
+                                    // Debugging: Kita ambil data langsung dari database jika relasi di model belum terhubung
+                                    $tim = \App\Models\AnggotaTim::where('produk_id', $produk->id)->get();
+                                @endphp
+                                
+                                @forelse($tim as $anggota)
+                                <span class="bg-white border border-indigo/10 text-indigo px-4 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-user text-[10px] opacity-50"></i> {{ $anggota->nama_siswa }}
+                                </span>
                                 @empty
-                                    <p class="text-xs text-slate-400 italic">Data anggota tim belum tersedia.</p>
+                                    <p class="text-xs text-slate-400 italic">Data tidak ditemukan di database. Pastikan produk_id di tabel anggota_tim benar.</p>
                                 @endforelse
                             </div>
+
                             @if($produk->foto_tim)
                                 <p class="text-[10px] eyebrow uppercase font-bold text-ink/40 mb-2">Foto Tim</p>
-                                <img src="{{ asset('storage/'.$clean($produk->foto_tim)) }}" class="w-full h-48 object-cover rounded-2xl border-4 border-white shadow-md">
+                                {{-- w-full memastikan lebar penuh, h-64 sedikit lebih lebar dari sebelumnya --}}
+                                <img src="{{ asset('storage/'.$clean($produk->foto_tim)) }}" 
+                                    class="w-full h-64 object-cover rounded-2xl border-4 border-white shadow-md">
                             @endif
                         </div>
                     </div>
