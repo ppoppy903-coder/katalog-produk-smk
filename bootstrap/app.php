@@ -11,7 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Daftarkan alias middleware di sini
+        $middleware->alias([
+            'role' => \App\Http\Middleware\EnsureUserHasRole::class,
+        ]);
+
+        // Membebaskan rute API sertifikat dari pemeriksaan CSRF Token
+        $middleware->validateCsrfTokens(except: [
+            'api/sertifikat/update'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

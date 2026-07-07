@@ -78,6 +78,11 @@
                     <input type="text" name="npsn" value="{{ old('npsn') }}" placeholder="Masukkan 8 digit NPSN" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" required>
                 </div>
 
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700">NISN SISWA</label>
+                    <input type="text" name="nisn" class="w-full mt-1 p-3 border rounded-xl" placeholder="Masukkan 10 digit NISN" required>
+                </div>
+
                 <button type="submit" class="w-full py-4 bg-[#0A193F] text-white rounded-2xl font-bold hover:bg-slate-800 transition-all active:scale-95">
                     Buat Akun →
                 </button>

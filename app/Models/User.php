@@ -24,7 +24,7 @@ class User extends Authenticatable
         'role',
         'nip',          // Digunakan untuk menyimpan "Nama Sekolah"
         'npsn',         // Digunakan untuk filter sekolah
-        'nisn',         // Opsional, untuk data siswa
+        'nisn',         // Digunakan untuk data siswa
     ];
 
     /**

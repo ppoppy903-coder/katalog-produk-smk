@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Mengabaikan folder session Laravel
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore

@@ -20,6 +20,8 @@ class Sertifikat extends Model
         'nomor_sertifikat',
         'status',
         'diterbitkan_pada',
+        'nisn',             
+        'link_sertifikat', 
     ];
 
     // Relasi ke Produk

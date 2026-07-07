@@ -27,6 +27,13 @@
            class="block px-4 py-3 rounded-lg {{ request()->routeIs('pengaturan') ? 'bg-blue-900' : 'hover:bg-blue-900' }} transition">
             <i class="fa-solid fa-gear mr-3"></i> Pengaturan
         </a>
+
+        <a href="{{ route('sertifikat.index') }}" 
+        class="flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl 
+        {{ request()->routeIs('sertifikat.index') ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-50 hover:text-slate-700' }}">
+            <i class="fa-solid fa-certificate"></i>
+            <span>Sertifikat Saya</span>
+        </a>
     </nav>
 
     <div class="p-4 border-t border-blue-900">

@@ -50,9 +50,9 @@ class Produk extends Model
         return $this->hasMany(Komentar::class, 'produk_id');
     }
 
-    // Relasi ke tabel anggota_tim
     public function anggotaTim()
     {
-        return $this->hasMany(AnggotaTim::class, 'produk_id');
+        // Pastikan nama model 'AnggotaTim' sesuai dengan file Anda
+        return $this->hasMany(AnggotaTim::class, 'produk_id', 'id');
     }
 }

@@ -16,6 +16,8 @@
     @auth
         @if(auth()->user()->role === 'guru')
             @include('layouts.sidebar-guru')
+        @elseif(auth()->user()->role === 'admin')
+            <x-sidebar-admin /> <!-- Memanggil komponen sidebar admin yang kita buat -->
         @else
             @include('layouts.sidebar-siswa')
         @endif

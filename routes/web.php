@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ValidasiController;
+use App\Http\Controllers\SertifikatController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 
 // --- RUTE CADANGAN ---
@@ -23,8 +25,6 @@ Route::post('/produk/{id}/komentar', [ProdukController::class, 'storeKomentar'])
 // --- RUTE TAMU ---
 Route::middleware(['guest'])->group(function () {
     Route::get('/daftar', fn () => view('daftar'))->name('daftar');
-    
-    // PERBAIKAN: Penulisan ->name('proses.pilih.peran') yang benar
     Route::post('/proses-pilih-peran', function (Request $request) {
         if ($request->role === 'siswa') return redirect()->route('daftar.siswa');
         if ($request->role === 'guru') return redirect()->route('daftar.guru');
@@ -46,30 +46,39 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     
+    // Dashboard & Profil
     Route::get('/dashboard-siswa', [DashboardController::class, 'dashboardSiswa'])->name('dashboard.siswa');
     Route::get('/dashboard-guru', [DashboardController::class, 'dashboardGuru'])->name('dashboard.guru');
-    
     Route::get('/notifikasi', [DashboardController::class, 'notifikasi'])->name('notifikasi');
     Route::get('/notifikasi-guru', [DashboardController::class, 'notifikasiGuru'])->name('notifikasi.guru');
     Route::post('/notifikasi/{id}', [DashboardController::class, 'hapusNotifikasi'])->name('notifikasi.hapus');
-
     Route::get('/pengaturan', [DashboardController::class, 'pengaturan'])->name('pengaturan');
     Route::put('/update-pengaturan', [DashboardController::class, 'updatePengaturan'])->name('pengaturan.update');
     
+    // Rute Sertifikat (PENTING: Ditaruh di sini agar tidak terblokir middleware role)
+    Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+    Route::get('/sertifikat/download/{id}', [SertifikatController::class, 'download'])->name('sertifikat.download');
+
+    // Produk & Validasi
     Route::get('/tambah-produk', fn () => view('tambah-produk'))->name('tambah.produk');
     Route::post('/simpan-produk', [ProdukController::class, 'store'])->name('simpan.produk');
     Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/{id}/update', [ProdukController::class, 'update'])->name('produk.update');
     Route::post('/produk/{id}/ajukan', [ProdukController::class, 'ajukan'])->name('produk.ajukan');
     Route::get('/api/search-produk', [ProdukController::class, 'searchAutocomplete'])->name('produk.search.autocomplete');
-
     Route::post('/ulasan/approve/{id}', [ProdukController::class, 'approveKomentar'])->name('ulasan.approve');
     Route::delete('/ulasan/delete/{id}', [ProdukController::class, 'deleteKomentar'])->name('ulasan.delete');
     
     Route::get('/validasi-produk', [ValidasiController::class, 'index'])->name('validasi.produk');
     Route::get('/validasi-produk/{id}', [ValidasiController::class, 'show'])->name('validasi.show'); 
-    Route::get('/validasi-produk/{id}', [App\Http\Controllers\ValidasiController::class, 'show'])->name('validasi.show');
-    Route::post('/validasi-produk/{id}', [App\Http\Controllers\ValidasiController::class, 'updateStatus'])->name('validasi.updateStatus');
-
+    Route::post('/validasi-produk/{id}', [ValidasiController::class, 'updateStatus'])->name('validasi.updateStatus');
     Route::get('/histori-produk', [ValidasiController::class, 'histori'])->name('guru.histori');
+
+    Route::post('/api/sertifikat/update', [SertifikatController::class, 'importSertifikatJson']);
+});
+
+// --- RUTE KHUSUS ADMIN ---
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/data-user', [AdminController::class, 'dataUser'])->name('admin.data-user');
 });

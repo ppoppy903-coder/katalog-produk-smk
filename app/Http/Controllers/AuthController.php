@@ -17,6 +17,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'npsn' => 'required|string|max:20', 
+            'nisn' => 'required|string|max:20|unique:users',
         ]);
 
         User::create([
@@ -25,10 +26,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'siswa',
             'npsn' => $request->npsn,
+            'nisn' => $request->nisn,
         ]);
 
-        return redirect()->route('login.siswa')->with('success', 'Akun siswa berhasil dibuat!');
-    }
+        return redirect()->route('login.siswa')->with('success', 'Akun siswa berhasil dibuat!');    
+    
+        }
 
     public function registerGuru(Request $request)
     {
@@ -51,7 +54,7 @@ class AuthController extends Controller
         return redirect()->route('login.guru')->with('success', 'Akun guru berhasil dibuat!');
     }
 
-    // --- PROSES LOGIN ---
+// --- PROSES LOGIN ---
     public function loginSiswa(Request $request)
     {
         $credentials = $request->validate([
@@ -79,15 +82,20 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Mengambil user berdasarkan 'npsn' yang kini sudah sinkron dengan registerGuru
+        // Ubah pengecekan role agar admin juga bisa masuk
         $user = User::where('npsn', $request->npsn)
-                    ->where('role', 'guru')
+                    ->whereIn('role', ['guru', 'admin']) 
                     ->first();
 
-        // Verifikasi password
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
             $request->session()->regenerate();
+            
+            // Tambahkan logika pengalihan setelah login
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+            
             return redirect()->route('dashboard.guru');
         }
 
