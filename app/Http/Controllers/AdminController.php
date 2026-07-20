@@ -10,7 +10,10 @@ class AdminController extends Controller
     {
         // Mengambil jumlah data yang sebenarnya dari database
         $totalUser = \App\Models\User::count();
-        $totalSertifikat = \App\Models\Sertifikat::count(); // Pastikan model Sertifikat sudah ada
+        
+        // PERBAIKAN: Memanggil tabel 'sertifikats' secara langsung menggunakan DB facade
+        $totalSertifikat = \Illuminate\Support\Facades\DB::table('sertifikats')->count(); 
+        
         $dataPending = \App\Models\Produk::where('status', 'pending')->count(); // Contoh logika data pending
 
         return view('admin.dashboard', compact('totalUser', 'totalSertifikat', 'dataPending'));
