@@ -1,12 +1,15 @@
-@extends('layouts.siswa')
+@extends('layouts.app')
 
 @section('title', 'Pengaturan Akun')
 
 @section('content')
-    <div class="max-w-2xl">
-        <h2 class="text-3xl font-extrabold text-[#0A193F] mb-8">Pengaturan Akun</h2>
+    <div class="max-w-2xl mx-auto pb-20">
+        <div class="mb-8">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-[#0A193F] tracking-tight">Pengaturan Akun</h2>
+            <p class="text-slate-500 text-sm mt-1">Perbarui informasi profil dan keamanan akun Anda.</p>
+        </div>
         
-        <div class="bg-white p-10 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50">
+        <div class="bg-white p-6 sm:p-10 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50">
             {{-- Pesan Sukses --}}
             @if(session('success'))
                 <div class="mb-8 p-4 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100 text-sm font-bold flex items-center">
@@ -21,12 +24,12 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Lengkap</label>
-                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
+                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Email</label>
-                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
+                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
                     </div>
 
                     <div class="pt-6 border-t border-slate-100">
@@ -36,11 +39,11 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Password Baru</label>
-                                <input type="password" name="password" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="••••••••">
+                                <input type="password" name="password" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="••••••••">
                             </div>
                             <div>
                                 <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Konfirmasi Password</label>
-                                <input type="password" name="password_confirmation" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="••••••••">
+                                <input type="password" name="password_confirmation" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all" placeholder="••••••••">
                             </div>
                         </div>
                     </div>

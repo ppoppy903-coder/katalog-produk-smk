@@ -11,21 +11,40 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden text-slate-800 bg-[#F8FAFC]">
+<body class="min-h-screen flex text-slate-800 bg-[#F8FAFC]" x-data="{ sidebarOpen: false }">
 
-    @auth
-        @if(auth()->user()->role === 'guru')
-            @include('layouts.sidebar-guru')
-        @elseif(auth()->user()->role === 'admin')
-            <x-sidebar-admin /> <!-- Memanggil komponen sidebar admin yang kita buat -->
-        @else
-            @include('layouts.sidebar-siswa')
-        @endif
-    @endauth
+    {{-- SIDEBAR (Desktop: selalu tampil, Mobile: muncul jika sidebarOpen true) --}}
+    <div :class="sidebarOpen ? 'block fixed inset-y-0 left-0 z-50 w-64 shadow-2xl' : 'hidden'" class="lg:block lg:relative lg:z-0">
+        @auth
+            @if(auth()->user()->role === 'guru')
+                @include('layouts.sidebar-guru')
+            @elseif(auth()->user()->role === 'admin')
+                <x-sidebar-admin />
+            @else
+                @include('layouts.sidebar-siswa')
+            @endif
+        @endauth
+    </div>
 
-    <div class="flex-1 flex flex-col overflow-hidden">
-        <header class="h-16 bg-white border-b flex items-center justify-between px-8 shadow-sm z-10">
-            <div></div> 
+    {{-- Overlay Gelap saat Sidebar Mobile Terbuka --}}
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 lg:hidden" x-cloak></div>
+
+    <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+        {{-- HEADER DENGAN TOMBOL HAMBURGER MOBILE & JUDUL DINAMIS --}}
+        <header class="h-16 bg-white border-b flex items-center justify-between px-4 sm:px-8 shadow-sm z-30 sticky top-0">
+            <div class="flex items-center gap-3">
+                {{-- Tombol Hamburger khusus HP --}}
+                <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden text-slate-600 hover:text-[#0A193F] focus:outline-none p-2 rounded-xl hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <span class="font-extrabold text-[#0A193F] text-sm lg:hidden">
+                    @if(auth()->check() && auth()->user()->role === 'guru')
+                        Panel Guru
+                    @else
+                        Panel Siswa
+                    @endif
+                </span>
+            </div> 
             
             <div class="flex items-center gap-6">
                 <div class="text-right">
@@ -35,7 +54,7 @@
             </div>
         </header>
 
-        <main class="flex-1 overflow-y-auto p-8">
+        <main class="flex-1 p-4 sm:p-8">
             @yield('content')
         </main>
     </div>

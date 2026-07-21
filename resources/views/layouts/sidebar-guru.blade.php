@@ -1,8 +1,13 @@
-<aside class="w-64 bg-gradient-to-b from-indigo-50/60 via-slate-50 to-white border-r border-indigo-100/60 flex flex-col justify-between flex-shrink-0 z-20 shadow-sm">
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between flex-shrink-0 h-full lg:h-screen lg:sticky lg:top-0 z-20 shadow-2xl">
     <div>
-        <div class="h-20 flex flex-col justify-center px-8 border-b border-indigo-100/40 mb-4 mt-2">
+        <div class="h-20 flex flex-col justify-center px-8 border-b border-slate-100 mb-4 mt-2 relative">
             <h1 class="font-extrabold text-[#0A193F] text-xl tracking-tight">PKK SMK</h1>
             <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Teacher Panel</span>
+            
+            {{-- Tombol Close X khusus tampilan Mobile --}}
+            <button @click="sidebarOpen = false" class="lg:hidden absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
         </div>
         
         <nav class="px-4 flex flex-col gap-2">

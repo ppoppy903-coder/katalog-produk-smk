@@ -14,14 +14,14 @@
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-emerald-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <nav class="bg-white/90 backdrop-blur-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
-        <div class="flex items-center gap-3">
-            <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-10 w-auto">
-            <div class="font-extrabold text-lg text-[#0A2540] tracking-tight"><span>Proyek Kreatif & Kewirausahaan Murid SMK</span></div>
+    <nav class="bg-white/90 backdrop-blur-md px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3 sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="flex items-center gap-2.5">
+            <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-8 sm:h-10 w-auto">
+            <div class="font-extrabold text-sm sm:text-lg text-[#0A2540] tracking-tight"><span>Proyek Kreatif & Kewirausahaan Murid SMK</span></div>
         </div>
-        <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
+        <div class="flex items-center space-x-4 sm:space-x-6 text-xs sm:text-sm font-semibold text-slate-600">
             <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
-            <a href="{{ route('katalog') }}" class="text-blue-600 border-b-2 border-blue-600 pb-1">Katalog</a>
+            <a href="{{ route('katalog') }}" class="hover:text-blue-600 transition-colors">Katalog</a>
             <a href="{{ route('produk.terbaru') }}" class="hover:text-blue-600 transition-colors">Terbaru</a>
         </div>
     </nav>
@@ -97,18 +97,22 @@
                                 $foto_array = json_decode($produk->foto_produk, true);
                                 $foto_pertama = (is_array($foto_array) && count($foto_array) > 0) ? $foto_array[0] : null;
                             @endphp
-                            <div class="group bg-white rounded-3xl p-4 hover:shadow-2xl transition-all duration-300 border border-slate-100">
-                                @if($foto_pertama)
-                                    <img src="{{ asset('storage/'.$produk->logo) }}" 
-                                        alt="{{ $produk->nama_produk }}" 
-                                        class="w-full h-48 object-cover rounded-2xl mb-4 bg-slate-100">
-                                @else
-                                    <div class="w-full h-48 bg-slate-200 rounded-2xl mb-4 flex items-center justify-center text-slate-400">No Image</div>
-                                @endif
-                                <h3 class="font-bold text-md text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>
-                                <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2">{{ $produk->nama_merek }}</p>
-                                <p class="text-xs text-slate-500 line-clamp-2 mb-4 h-8">{{ $produk->deskripsi }}</p>
-                                <a href="{{ route('produk.detail.publik', $produk->id) }}" class="text-xs text-blue-900 font-bold hover:underline">Lihat detail →</a>
+                            <div class="group bg-white rounded-3xl p-4 hover:shadow-2xl transition-all duration-300 border border-slate-100 flex flex-col justify-between">
+                                <div>
+                                    @if($foto_pertama)
+                                        <img src="{{ asset('storage/'.$foto_pertama) }}" 
+                                            alt="{{ $produk->nama_produk }}" 
+                                            class="w-full h-48 object-cover rounded-2xl mb-4 bg-slate-100">
+                                    @else
+                                        <div class="w-full h-48 bg-slate-200 rounded-2xl mb-4 flex items-center justify-center text-slate-400 font-medium text-xs">No Image</div>
+                                    @endif
+                                    <h3 class="font-bold text-md text-[#0F2857] mb-1">{{ $produk->nama_produk }}</h3>
+                                    <p class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-2">{{ $produk->nama_merek }}</p>
+                                    <p class="text-xs text-slate-500 line-clamp-2 mb-4 h-8">{{ $produk->deskripsi }}</p>
+                                </div>
+                                <div>
+                                    <a href="{{ route('produk.detail.publik', $produk->id) }}" class="text-xs text-blue-900 font-bold hover:underline inline-flex items-center gap-1">Lihat detail →</a>
+                                </div>
                             </div>
                         @endforeach
                     </div>

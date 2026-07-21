@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Siswa')
 
 @section('content')
-    <div class="flex items-center justify-between mb-8">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
         <h2 class="text-2xl font-extrabold text-[#0F2857] tracking-tight">Produk Saya yang Diajukan</h2>
         
         @if(session('success'))
@@ -26,57 +26,52 @@
         </div>
     @endif
     
-        {{-- Grid Produk --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($produks ?? [] as $produk)
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col">
-                        
-                        {{-- Bagian Foto Produk yang Diperbaiki --}}
-                        @php
-                            // 1. Bersihkan string dari karakter JSON
-                            $raw = str_replace(['[', ']', '"', '\\'], ['', '', '', ''], $produk->foto_produk);
-                            
-                            // 2. Pecah string menjadi array berdasarkan koma
-                            $fotos = explode(',', $raw);
-                            
-                            // 3. Ambil foto pertama saja (index 0)
-                            $fotoPertama = trim($fotos[0]);
-                        @endphp
+    {{-- Grid Produk --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        @forelse($produks ?? [] as $produk)
+            <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between">
+                <div>
+                    {{-- Bagian Foto Produk --}}
+                    @php
+                        $raw = str_replace(['[', ']', '"', '\\'], ['', '', '', ''], $produk->foto_produk);
+                        $fotos = explode(',', $raw);
+                        $fotoPertama = trim($fotos[0]);
+                    @endphp
 
-                        {{-- Menampilkan foto pertama saja --}}
-                        <img src="{{ asset('storage/' . $fotoPertama) }}" 
-                            class="w-full h-48 object-cover rounded-2xl mb-5 shadow-inner">
-                        
-                        <div class="flex-grow">
-                            <h3 class="font-extrabold text-[#0F2857] text-lg mb-1">{{ $produk->nama_produk }}</h3>
-                            <p class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-4">Merek: {{ $produk->nama_merek }}</p>
-                        </div>
-                
-                {{-- Bagian Tombol --}}
-                <div class="mt-4 pt-4 border-t border-slate-100 flex items-center gap-3">
-                    <a href="{{ route('produk.edit', $produk->id) }}" class="flex-1 text-center py-3 bg-slate-50 rounded-xl text-[11px] font-bold text-slate-700 hover:bg-slate-100 transition">
-                        <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
-                    </a>
+                    <img src="{{ asset('storage/' . $fotoPertama) }}" 
+                        class="w-full h-48 object-cover rounded-2xl mb-5 shadow-inner bg-slate-100">
                     
-                    @if($produk->status !== 'menunggu' && $produk->status !== 'diterbitkan' && $produk->status !== 'disetujui')
-                        <form action="{{ route('produk.ajukan', $produk->id) }}" method="POST" class="flex-1">
-                            @csrf
-                            <button type="submit" class="w-full bg-[#0F2857] text-white py-3 rounded-xl text-[11px] font-bold hover:bg-blue-900 transition">
-                                <i class="fa-solid fa-paper-plane mr-1"></i> Ajukan
-                            </button>
-                        </form>
-                    @endif
+                    <h3 class="font-extrabold text-[#0F2857] text-lg mb-1">{{ $produk->nama_produk }}</h3>
+                    <p class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-4">Merek: {{ $produk->nama_merek }}</p>
                 </div>
+        
+                <div>
+                    {{-- Status Label --}}
+                    <div class="mb-4">
+                        <span class="inline-block px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider 
+                            {{ $produk->status == 'diterbitkan' ? 'text-emerald-700 bg-emerald-50' : '' }}
+                            {{ $produk->status == 'disetujui' ? 'text-blue-700 bg-blue-50' : '' }}
+                            {{ $produk->status == 'menunggu' ? 'text-amber-700 bg-amber-50' : '' }}
+                            {{ $produk->status == 'draft' ? 'text-slate-600 bg-slate-100' : '' }}">
+                            {{ $produk->status ?? 'Draft' }}
+                        </span>
+                    </div>
 
-                {{-- Status Label --}}
-                <div class="mt-4">
-                    <span class="inline-block px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider 
-                        {{ $produk->status == 'diterbitkan' ? 'text-emerald-700 bg-emerald-50' : '' }}
-                        {{ $produk->status == 'disetujui' ? 'text-blue-700 bg-blue-50' : '' }}
-                        {{ $produk->status == 'menunggu' ? 'text-amber-700 bg-amber-50' : '' }}
-                        {{ $produk->status == 'draft' ? 'text-slate-600 bg-slate-100' : '' }}">
-                        {{ $produk->status ?? 'Draft' }}
-                    </span>
+                    {{-- Bagian Tombol --}}
+                    <div class="pt-4 border-t border-slate-100 flex items-center gap-3">
+                        <a href="{{ route('produk.edit', $produk->id) }}" class="flex-1 text-center py-3 bg-slate-50 rounded-xl text-[11px] font-bold text-slate-700 hover:bg-slate-100 transition">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
+                        </a>
+                        
+                        @if($produk->status !== 'menunggu' && $produk->status !== 'diterbitkan' && $produk->status !== 'disetujui')
+                            <form action="{{ route('produk.ajukan', $produk->id) }}" method="POST" class="flex-1">
+                                @csrf
+                                <button type="submit" class="w-full bg-[#0F2857] text-white py-3 rounded-xl text-[11px] font-bold hover:bg-blue-900 transition">
+                                    <i class="fa-solid fa-paper-plane mr-1"></i> Ajukan
+                                </button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         @empty
@@ -92,19 +87,19 @@
         <h3 class="text-xl font-bold text-[#0A193F] mb-6">Moderasi Ulasan Negatif</h3>
         <div class="space-y-4">
             @forelse($ulasanPending ?? [] as $ulasan)
-                <div class="bg-white p-6 rounded-2xl border border-red-100 shadow-sm flex justify-between items-center">
+                <div class="bg-white p-6 rounded-2xl border border-red-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
                         <p class="font-bold text-slate-800">{{ $ulasan->nama_pengunjung }} <span class="text-amber-500 text-xs">({{ $ulasan->rating }} Bintang)</span></p>
                         <p class="text-slate-600 text-sm mt-1">{{ $ulasan->komentar }}</p>
                     </div>
-                    <div class="flex gap-2">
-                        <form action="{{ route('ulasan.approve', $ulasan->id) }}" method="POST">
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <form action="{{ route('ulasan.approve', $ulasan->id) }}" method="POST" class="flex-1 sm:flex-initial">
                             @csrf
-                            <button class="bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-emerald-600 transition">Publish</button>
+                            <button class="w-full bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-emerald-600 transition">Publish</button>
                         </form>
-                        <form action="{{ route('ulasan.delete', $ulasan->id) }}" method="POST">
+                        <form action="{{ route('ulasan.delete', $ulasan->id) }}" method="POST" class="flex-1 sm:flex-initial">
                             @csrf @method('DELETE')
-                            <button class="bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-red-600 transition">Hapus</button>
+                            <button class="w-full bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-red-600 transition">Hapus</button>
                         </form>
                     </div>
                 </div>

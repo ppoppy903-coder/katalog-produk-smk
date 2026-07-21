@@ -14,20 +14,15 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    {{-- NAVBAR DIPERBAIKI (Logika Aktif) --}}
-    <nav class="bg-white/90 backdrop-blur-md px-8 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100 shadow-sm">
-        <div class="flex items-center gap-3">
-            {{-- LOGO BARU --}}
-            <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-10 w-auto">
-            
-            <div class="font-extrabold text-lg text-[#0A2540] tracking-tight">
-                <span>Proyek Kreatif & Kewirausahaan Murid SMK</span>
-            </div>
+    <nav class="bg-white/90 backdrop-blur-md px-4 sm:px-8 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-3 sticky top-0 z-50 border-b border-slate-100 shadow-sm">
+        <div class="flex items-center gap-2.5">
+            <img src="{{ asset('images/web-katalog-desain.png') }}" alt="Logo" class="h-8 sm:h-10 w-auto">
+            <div class="font-extrabold text-sm sm:text-lg text-[#0A2540] tracking-tight"><span>Proyek Kreatif & Kewirausahaan Murid SMK</span></div>
         </div>
-        <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
-            <a href="/" class="{{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Beranda</a>
-            <a href="{{ route('katalog') }}" class="{{ request()->routeIs('katalog') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Katalog</a>
-            <a href="{{ route('produk.terbaru') }}" class="{{ request()->routeIs('produk.terbaru') ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : 'hover:text-blue-600 transition-colors' }}">Terbaru</a>
+        <div class="flex items-center space-x-4 sm:space-x-6 text-xs sm:text-sm font-semibold text-slate-600">
+            <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
+            <a href="{{ route('katalog') }}" class="hover:text-blue-600 transition-colors">Katalog</a>
+            <a href="{{ route('produk.terbaru') }}" class="hover:text-blue-600 transition-colors">Terbaru</a>
         </div>
     </nav>
 
