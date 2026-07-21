@@ -54,9 +54,9 @@
         </a>
 
         {{-- HEADER --}}
-        <div class="bg-gradient-to-br from-sky via-white to-lav px-8 py-7 rounded-3xl mb-8 border border-indigo/10 flex items-center justify-between">
-            <h1 class="font-display text-2xl text-ink flex items-center gap-3">
-                <span class="w-9 h-9 rounded-full bg-indigo/10 text-indigo flex items-center justify-center">
+        <div class="bg-gradient-to-br from-sky via-white to-lav p-6 sm:px-8 sm:py-7 rounded-3xl mb-8 border border-indigo/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <h1 class="font-display text-xl sm:text-2xl text-ink flex items-center gap-3">
+                <span class="w-9 h-9 rounded-full bg-indigo/10 text-indigo flex items-center justify-center flex-shrink-0">
                     <i class="fa-solid fa-circle-info text-sm"></i>
                 </span>
                 Detail Postingan
@@ -70,7 +70,7 @@
             {{-- KIRI --}}
             <div class="lg:col-span-8 space-y-6">
                 <div class="bg-white p-3 rounded-3xl shadow-sm border border-indigo/10">
-                    <div class="swiper mySwiper w-full h-96 rounded-2xl overflow-hidden">
+                    <div class="swiper mySwiper w-full h-72 sm:h-96 rounded-2xl overflow-hidden">
                         <div class="swiper-wrapper">
                             @php
                                 $clean = fn($p) => str_replace(['[', ']', '"', '\\', '/'], ['', '', '', '', '/'], $p);
@@ -84,10 +84,10 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-8 rounded-3xl border border-indigo/10 shadow-sm space-y-6">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-indigo/10 shadow-sm space-y-6">
                     <div>
                         <p class="eyebrow text-xs font-bold text-indigo uppercase mb-1">Merek &mdash; {{ $produk->nama_merek }}</p>
-                        <h1 class="font-display text-4xl font-semibold text-ink leading-tight">{{ $produk->nama_produk }}</h1>
+                        <h1 class="font-display text-3xl sm:text-4xl font-semibold text-ink leading-tight">{{ $produk->nama_produk }}</h1>
                     </div>
                     <div class="h-1.5 w-16 rounded-full bg-gradient-to-r from-sky-500 via-teal to-sunset"></div>
                     <div class="space-y-6 text-slate-500 text-justify">
@@ -114,13 +114,13 @@
                     {{-- TIM PENGEMBANG --}}
                     <div class="mt-8 rounded-3xl overflow-hidden border border-indigo/10">
                         <div class="bg-gradient-to-r from-teal to-emerald-600 px-6 py-4 flex items-center gap-3">
-                            <span class="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center">
+                            <span class="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0">
                                 <i class="fa-solid fa-users text-white text-sm"></i>
                             </span>
                             <h3 class="font-display font-semibold text-white">Tim Pengembang</h3>
                         </div>
                         <div class="bg-mint/40 p-6">
-                            <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                                 <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo/10">
                                     <p class="text-[10px] eyebrow uppercase font-bold text-ink/40">Sekolah</p>
                                     <p class="font-semibold text-ink">{{ $produk->nama_sekolah ?? '-' }}</p>
@@ -134,7 +134,6 @@
                             <p class="text-[10px] eyebrow uppercase font-bold text-ink/40 mb-3">Anggota Tim</p>
                             <div class="flex flex-wrap gap-2 mb-6">
                                 @php
-                                    // Debugging: Kita ambil data langsung dari database jika relasi di model belum terhubung
                                     $tim = \App\Models\AnggotaTim::where('produk_id', $produk->id)->get();
                                 @endphp
                                 
@@ -143,15 +142,13 @@
                                     <i class="fa-solid fa-user text-[10px] opacity-50"></i> {{ $anggota->nama_siswa }}
                                 </span>
                                 @empty
-                                    <p class="text-xs text-slate-400 italic">Data tidak ditemukan di database. Pastikan produk_id di tabel anggota_tim benar.</p>
+                                    <p class="text-xs text-slate-400 italic">Data anggota tim belum tersedia.</p>
                                 @endforelse
                             </div>
 
                             @if($produk->foto_tim)
                                 <p class="text-[10px] eyebrow uppercase font-bold text-ink/40 mb-2">Foto Tim</p>
-                                {{-- w-full memastikan lebar penuh, h-64 sedikit lebih lebar dari sebelumnya --}}
-                                <img src="{{ asset('storage/'.$clean($produk->foto_tim)) }}" 
-                                    class="w-full h-64 object-cover rounded-2xl border-4 border-white shadow-md">
+                                <img src="{{ asset('storage/'.$clean($produk->foto_tim)) }}" class="w-full h-64 object-cover rounded-2xl border-4 border-white shadow-md">
                             @endif
                         </div>
                     </div>
@@ -160,8 +157,8 @@
 
             {{-- KANAN --}}
             <div class="lg:col-span-4 space-y-6">
-                <div class="bg-white p-8 rounded-3xl border border-indigo/10 shadow-sm space-y-6">
-                    <img src="{{ asset('storage/'.$clean($produk->logo)) }}" class="w-28 h-28 rounded-3xl object-cover shadow-md border-4 border-lav/50">
+                <div class="bg-white p-6 sm:p-8 rounded-3xl border border-indigo/10 shadow-sm space-y-6">
+                    <img src="{{ asset('storage/'.$clean($produk->logo)) }}" class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-cover shadow-md border-4 border-lav/50">
 
                     <div class="space-y-3">
                         <div class="bg-peach/60 p-4 rounded-2xl flex flex-col gap-1">
@@ -178,7 +175,6 @@
                     <div class="bg-white border border-indigo/10 rounded-2xl p-5 shadow-sm">
                         <p class="text-[9px] eyebrow font-bold text-ink/40 uppercase mb-4 tracking-widest">Informasi Tambahan</p>
                         <div class="space-y-3">
-                            {{-- Menggunakan teks "Kunjungi Sosial Media" agar lebih umum --}}
                             @if(!empty($produk->sosmed))
                                 <a href="{{ (strpos($produk->sosmed, 'http') === 0) ? $produk->sosmed : 'https://' . ltrim($produk->sosmed, '@') }}" 
                                 target="_blank" class="flex items-center text-sm font-semibold text-indigo hover:text-blue-700 transition">
@@ -208,22 +204,22 @@
 
                 {{-- FORM ULASAN --}}
                 <div class="bg-white rounded-3xl border border-indigo/10 shadow-sm overflow-hidden">
-                    <div class="bg-gradient-to-r from-orange-400 to-amber-500 px-8 py-4">
+                    <div class="bg-gradient-to-r from-orange-400 to-amber-500 px-6 sm:px-8 py-4">
                         <h3 class="font-display font-semibold text-white flex items-center gap-2">
                             <i class="fa-solid fa-pen-nib text-sm"></i> Tulis Ulasan
                         </h3>
                     </div>
-                    <form action="{{ route('produk.komentar', $produk->id) }}" method="POST" class="p-8 space-y-3">
+                    <form action="{{ route('produk.komentar', $produk->id) }}" method="POST" class="p-6 sm:p-8 space-y-3">
                         @csrf
-                        <input type="text" name="nama" placeholder="Nama Anda" class="w-full p-3 bg-lav/40 rounded-xl outline-none focus:ring-2 focus:ring-sky-500 transition" required>
-                        <select name="rating" class="w-full p-3 border border-indigo/15 rounded-xl bg-white focus:ring-2 focus:ring-sky-500 outline-none transition" required>
+                        <input type="text" name="nama" placeholder="Nama Anda" class="w-full p-3 bg-lav/40 rounded-xl outline-none focus:ring-2 focus:ring-sky-500 transition text-sm" required>
+                        <select name="rating" class="w-full p-3 border border-indigo/15 rounded-xl bg-white focus:ring-2 focus:ring-sky-500 outline-none transition text-sm" required>
                             <option value="5">⭐⭐⭐⭐⭐ (Sangat Bagus)</option>
                             <option value="4">⭐⭐⭐⭐ (Bagus)</option>
                             <option value="3">⭐⭐⭐ (Cukup)</option>
                             <option value="2">⭐⭐ (Kurang)</option>
                             <option value="1">⭐ (Sangat Kurang)</option>
                         </select>
-                        <textarea name="komentar" placeholder="Ulasan..." class="w-full p-3 bg-lav/40 rounded-xl h-20 outline-none focus:ring-2 focus:ring-sky-500 transition" required></textarea>
+                        <textarea name="komentar" placeholder="Ulasan..." class="w-full p-3 bg-lav/40 rounded-xl h-20 outline-none focus:ring-2 focus:ring-sky-500 transition text-sm" required></textarea>
                         <button class="w-full bg-ink hover:opacity-90 text-white py-3 rounded-2xl font-bold transition">Kirim Ulasan</button>
                     </form>
                 </div>
