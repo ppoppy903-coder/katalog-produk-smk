@@ -7,7 +7,6 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ValidasiController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\GoogleController; // <-- Ditambahkan untuk Google Login Ulasan
 use Illuminate\Http\Request;
 
 // --- RUTE CADANGAN ---
@@ -19,10 +18,6 @@ Route::get('/katalog', [ProdukController::class, 'showKatalog'])->name('katalog'
 Route::get('/produk-terbaru', [ProdukController::class, 'showTerbaru'])->name('produk.terbaru');
 Route::get('/about', fn () => view('about'))->name('about');
 Route::get('/detail-produk/{id}', [ProdukController::class, 'showPublic'])->name('produk.detail.publik');
-
-// --- RUTE GOOGLE AUTH (UNTUK VERIFIKASI KIRIM ULASAN) ---
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // --- RUTE KOMENTAR (PUBLIK) ---
 Route::post('/produk/{id}/komentar', [ProdukController::class, 'storeKomentar'])->name('produk.komentar');
