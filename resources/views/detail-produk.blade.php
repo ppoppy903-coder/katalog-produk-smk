@@ -61,9 +61,13 @@
             <!-- Tim Pengembang, Institusi, & Foto Tim -->
             <div class="bg-indigo-50/60 p-6 sm:p-8 rounded-3xl border border-indigo-100 space-y-6">
                 <h3 class="font-bold text-indigo-900 uppercase text-xs tracking-widest">Tim Pengembang & Institusi</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-2xl border border-indigo-100 shadow-sm"><p class="text-[10px] uppercase font-bold text-slate-400">Sekolah</p><p class="font-bold text-slate-800">{{ $produk->nama_sekolah ?? '-' }}</p></div>
-                    <div class="bg-white p-4 rounded-2xl border border-indigo-100 shadow-sm"><p class="text-[10px] uppercase font-bold text-slate-400">Jurusan</p><p class="font-bold text-slate-800">{{ $produk->jurusan ?? '-' }}</p></div>
+                
+                <!-- Kotak Sekolah (Jurusan dihapus, sekarang full width) -->
+                <div>
+                    <div class="bg-white p-4 rounded-2xl border border-indigo-100 shadow-sm">
+                        <p class="text-[10px] uppercase font-bold text-slate-400">Sekolah</p>
+                        <p class="font-bold text-slate-800">{{ $produk->nama_sekolah ?? '-' }}</p>
+                    </div>
                 </div>
                 
                 <div>

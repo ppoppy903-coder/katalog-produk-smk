@@ -128,15 +128,11 @@
             <h3 class="text-base sm:text-lg font-extrabold text-[#0A193F] mb-6 flex items-center gap-3">
                 <span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm flex-shrink-0">4</span> Identitas Tim & Institusi
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Sekolah</label>
-                    <input type="text" name="nama_sekolah" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Jurusan</label>
-                    <input type="text" name="jurusan" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
-                </div>
+            
+            {{-- Kotak Nama Sekolah (Jurusan dihapus, kini tampil full-width) --}}
+            <div class="w-full">
+                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-1">Nama Sekolah</label>
+                <input type="text" name="nama_sekolah" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:border-[#0A193F] focus:ring-1 focus:ring-[#0A193F] outline-none transition-all">
             </div>
             
             {{-- CONTAINER ANGGOTA TIM --}}

@@ -120,14 +120,11 @@
                             <h3 class="font-display font-semibold text-white">Tim Pengembang</h3>
                         </div>
                         <div class="bg-mint/40 p-6">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                            <!-- Kotak Sekolah (Jurusan dihapus, kini tampil sendiri secara penuh) -->
+                            <div class="mb-4">
                                 <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo/10">
                                     <p class="text-[10px] eyebrow uppercase font-bold text-ink/40">Sekolah</p>
                                     <p class="font-semibold text-ink">{{ $produk->nama_sekolah ?? '-' }}</p>
-                                </div>
-                                <div class="bg-white p-4 rounded-xl shadow-sm border border-indigo/10">
-                                    <p class="text-[10px] eyebrow uppercase font-bold text-ink/40">Jurusan</p>
-                                    <p class="font-semibold text-ink">{{ $produk->jurusan ?? '-' }}</p>
                                 </div>
                             </div>
                             
